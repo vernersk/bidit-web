@@ -12,6 +12,8 @@
                 <div class="py-2 flex-grow-1">
                     <h5 class="card-title">{{ $product->name }}</h5>
                     <p class="card-text">{{ $product->description }}</p>
+                </div>
+                <div class="my-2">
                     <div class="card-text block">Highest bid: <span>$5</span> </div>
                 </div>
                 <div class="mb-3">
