@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bid;
+use App\Models\Product;
+use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 
 class BidController extends Controller
 {
@@ -18,25 +24,38 @@ class BidController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
-     */
-    public function create()
+
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return void
+     * @return Application|RedirectResponse|Redirector
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->query()->where('id', $request->input('productId'))->first();
+
+
+        $highestBid = $product
+            ->bids()
+            ->orderBy('amount', 'DESC')
+            ->first();
+
+        if($request->input('bid') > $highestBid){
+            $bid = new Bid();
+            $bid->product_id = $request->input('productId');
+            $bid->user_id = Auth::id();
+            $bid->amount = $request->input('bid');
+            $bid->save();
+        }
+
+        return redirect('product.show', $request->input('productId'));
     }
 
     /**

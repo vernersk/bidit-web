@@ -2,20 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bid;
 use App\Models\Product;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
      * @return void
      */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Renderable
+     */
+    public function index(): Renderable
+    {
+        $products = Product::all();
+        foreach($products as $product){
+            $product->highestBid = $product
+                ->bids()
+                ->orderBy('amount', 'DESC')
+                ->first();
+        }
+
+        return view('home', compact('products'));
     }
 
     /**
@@ -43,11 +63,24 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param Product $product
-     * @return void
+     * @return Renderable
      */
-    public function show(Product $product)
+    public function show(Product $product): Renderable
     {
-        //
+        $bids = $product->bids()
+            ->join('users', 'users.id', '=', 'bids.user_id')
+            ->select('users.name', 'bids.amount')
+            ->orderBy('amount', 'DESC')
+            ->limit(6)
+            ->get();
+
+        $orderedBids = [];
+        $count = count($bids);
+        for($i = 0; $i < $count; $i++){
+            $orderedBids[$i] = $bids[($count-1)-$i];
+        }
+
+        return view('product')->with('product', $product)->with('bids', $orderedBids);
     }
 
     /**

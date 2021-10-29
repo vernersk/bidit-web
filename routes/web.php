@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BidController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [ProductController::class, 'index'])->name('home');
+
+Route::resource('product', ProductController::class);
+
+Route::resource('bid', BidController::class);

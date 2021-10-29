@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row g-5 justify-content-center">
-        <?php foreach($data as $product): ?>
+        <?php foreach($products as $product): ?>
             <div class="card col-3 m-2 shadow-sm" style="width: 18rem;">
                 <img
                     src="https://thumbs.dreamstime.com/b/old-worn-laced-boot-white-background-old-worn-boot-169699019.jpg"
@@ -14,10 +14,10 @@
                     <p class="card-text">{{ $product->description }}</p>
                 </div>
                 <div class="my-2">
-                    <div class="card-text block">Highest bid: <span>$5</span> </div>
+                    <div class="card-text block">Highest bid: <span>${{$product->highestBid->amount}}</span> </div>
                 </div>
                 <div class="mb-3">
-                    <a class="btn btn-primary w-100" href="">Place a bid</a>
+                    <a class="btn btn-primary w-100" href="{{route('product.show', $product)}}">Place a bid</a>
                 </div>
             </div>
         <?php endforeach; ?>
