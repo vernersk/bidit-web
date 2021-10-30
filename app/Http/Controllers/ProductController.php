@@ -25,15 +25,6 @@ class ProductController extends Controller
      */
     public function index(): Renderable
     {
-        $products = Product::all();
-        foreach($products as $product){
-            $product->highestBid = $product
-                ->bids()
-                ->orderBy('amount', 'DESC')
-                ->first();
-        }
-
-        return view('home', compact('products'));
     }
 
     /**
@@ -63,22 +54,9 @@ class ProductController extends Controller
      * @param Product $product
      * @return Renderable
      */
-    public function show(Product $product): Renderable
+    public function show(Product $product)
     {
-        $bids = $product->bids()
-            ->join('users', 'users.id', '=', 'bids.user_id')
-            ->select('users.name', 'bids.amount')
-            ->orderBy('amount', 'DESC')
-            ->limit(7)
-            ->get();
 
-        $orderedBids = [];
-        $count = count($bids);
-        for($i = 0; $i < $count; $i++){
-            $orderedBids[$i] = $bids[($count-1)-$i];
-        }
-
-        return view('product')->with('product', $product)->with('bids', $orderedBids);
     }
 
     /**
