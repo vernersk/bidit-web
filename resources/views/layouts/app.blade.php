@@ -32,9 +32,23 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <div class="navbar-nav">
 
-                    </ul>
+                    </div>
+
+                    <div class="navbar-nav justify-content-center w-100">
+                        @auth
+                            <a href="{{route('auction.index')}}" class="text-decoration-none font-weight-bold text-black-50 px-4">
+                                HOME
+                            </a>
+                            <a href="{{route('bid.index')}}" class="text-decoration-none font-weight-bold text-black-50 px-4">
+                                MY BIDS
+                            </a>
+                            <a href="{{route('win.index')}}" class="text-decoration-none font-weight-bold text-black-50 px-4">
+                                MY WINS
+                            </a>
+                        @endauth
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

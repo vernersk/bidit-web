@@ -2,44 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Auction;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class AuctionController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
-     * @return Renderable
      */
     public function index(): Renderable
     {
-        $products = Product::all();
-        foreach($products as $product){
-            $product->highestBid = $product
-                ->bids()
+        $auctions = Auction::all();
+
+        foreach($auctions as $auction){
+            $auction->highestBid = $auction->bids()
                 ->orderBy('amount', 'DESC')
                 ->first();
         }
 
-        return view('home', compact('products'));
+        return view('home', compact('auctions'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -49,8 +38,8 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -59,13 +48,12 @@ class ProductController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param Product $product
      * @return Renderable
      */
-    public function show(Product $product): Renderable
+    public function show(Auction $auction)
     {
-        $bids = $product->bids()
+        $bids = $auction
+            ->bids()
             ->join('users', 'users.id', '=', 'bids.user_id')
             ->select('users.name', 'bids.amount')
             ->orderBy('amount', 'DESC')
@@ -78,16 +66,18 @@ class ProductController extends Controller
             $orderedBids[$i] = $bids[($count-1)-$i];
         }
 
-        return view('product')->with('product', $product)->with('bids', $orderedBids);
+        return view('product')
+            ->with('auction', $auction)
+            ->with('bids', $orderedBids);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Product $product
-     * @return void
+     * @param  \App\Models\Auction  $auction
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Auction $auction)
     {
         //
     }
@@ -95,11 +85,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Product $product
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Auction  $auction
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Auction $auction)
     {
         //
     }
@@ -107,10 +97,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Product $product
-     * @return void
+     * @param  \App\Models\Auction  $auction
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Auction $auction)
     {
         //
     }

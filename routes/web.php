@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WinController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [ProductController::class, 'index'])->name('home');
+Route::get('/', [AuctionController::class, 'index'])->name('home');
 
-Route::resource('product', ProductController::class);
+Route::resource('auction', AuctionController::class);
 
 Route::resource('bid', BidController::class);
+
+Route::resource('win', WinController::class);

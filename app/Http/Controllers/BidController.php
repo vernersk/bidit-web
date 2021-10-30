@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auction;
 use App\Models\Bid;
-use App\Models\Product;
-use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class BidController extends Controller
@@ -17,11 +14,36 @@ class BidController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return void
+     * @return Renderable
      */
     public function index()
     {
-        //
+        $bids = Bid::query()
+            ->where('user_id',  '=', auth()->id())
+            ->get();
+
+        $data = [];
+        $products = [];
+        foreach($bids as $bid){
+            if(in_array($bid->auction->product, $products)) continue;
+
+            $products[] = $bid->auction->product;
+            $highestBid = $bid->auction
+                ->bids()
+                ->join('users', 'users.id', '=', 'bids.user_id')
+                ->select(['users.id as userId', 'users.name', 'bids.amount'])
+                ->orderBy('amount', 'DESC')
+                ->first();
+
+            $data[] = [
+                'userBid' => $bid,
+                'highestBid' => $highestBid,
+                'auction' => $bid->auction,
+                'isUserHighestBidder' => $highestBid->userId == auth()->id(),
+            ];
+        }
+
+        return view('user-bids', compact('data'));
     }
 
 
@@ -34,28 +56,28 @@ class BidController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Redirector
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
-        $product = new Product();
-        $product->query()->where('id', $request->input('productId'))->first();
+        $auction = Auction::query()
+            ->where('id', $request->input('auctionId'))
+            ->first();
 
-
-        $highestBid = $product
+        $highestBid = $auction
             ->bids()
             ->orderBy('amount', 'DESC')
             ->first();
 
-        if($request->input('bid') > $highestBid){
+        if($request->input('bid') > $highestBid->amount) {
             $bid = new Bid();
-            $bid->product_id = $request->input('productId');
+            $bid->auction_id = $request->input('auctionId');
             $bid->user_id = Auth::id();
             $bid->amount = $request->input('bid');
             $bid->save();
         }
 
-        return redirect('product.show', $request->input('productId'));
+        return redirect()->route('auction.show', ['auction' => $auction]);
     }
 
     /**
