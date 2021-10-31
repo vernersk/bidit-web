@@ -47,7 +47,7 @@ class BidController extends Controller
 
             $data[] = [
                 'userBid' => $bid,
-                'highestBid' => $highestBid,
+                'highestBid' => $highestBid->amount ? $highestBid : 0,
                 'auction' => $bid->auction,
                 'isUserHighestBidder' => $highestBid->userId == auth()->id(),
             ];
@@ -74,10 +74,7 @@ class BidController extends Controller
             ->where('id', $request->input('auctionId'))
             ->first();
 
-        $highestBid = $auction
-            ->bids()
-            ->orderBy('amount', 'DESC')
-            ->first();
+        $highestBid = $auction->bids()->orderBy('amount', 'DESC')->first();
 
         $userBid = $request->input('bid');
 
