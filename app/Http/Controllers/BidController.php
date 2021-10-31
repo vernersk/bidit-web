@@ -79,7 +79,9 @@ class BidController extends Controller
             ->orderBy('amount', 'DESC')
             ->first();
 
-        if($request->input('bid') > $highestBid->amount) {
+        $userBid = $request->input('bid');
+
+        if(!$highestBid->amount || $userBid > $highestBid->amount) {
             $bid = new Bid();
             $bid->auction_id = $request->input('auctionId');
             $bid->user_id = Auth::id();

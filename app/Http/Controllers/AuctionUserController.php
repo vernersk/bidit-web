@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Win;
-use Illuminate\Contracts\Support\Renderable;
+use App\Models\AuctionUsers;
 use Illuminate\Http\Request;
 
-class WinController extends Controller
+class AuctionUserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('user-wins', );
+        //
     }
 
     /**
@@ -42,10 +41,10 @@ class WinController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Win  $win
+     * @param  \App\Models\AuctionUsers  $auctionUser
      * @return \Illuminate\Http\Response
      */
-    public function show(Win $win)
+    public function show(AuctionUsers $auctionUser)
     {
         //
     }
@@ -53,10 +52,10 @@ class WinController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Win  $win
+     * @param  \App\Models\AuctionUsers  $auctionUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(Win $win)
+    public function edit(AuctionUsers $auctionUser)
     {
         //
     }
@@ -65,21 +64,21 @@ class WinController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Win  $win
+     * @param  \App\Models\AuctionUsers  $auctionUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Win $win)
+    public function update(Request $request, AuctionUsers $auctionUser)
     {
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Win  $win
+     * @param  \App\Models\AuctionUsers  $auctionUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Win $win)
+    public function destroy(AuctionUsers $auctionUser)
     {
         //
     }

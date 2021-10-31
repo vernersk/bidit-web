@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BidController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WinController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,8 +21,8 @@ Auth::routes();
 
 Route::get('/', [AuctionController::class, 'index'])->name('home');
 
-Route::resource('auction', AuctionController::class);
+Route::resource('auction', AuctionController::class)->middleware('auth');
 
-Route::resource('bid', BidController::class);
+Route::resource('bid', BidController::class)->middleware('auth');
 
-Route::resource('win', WinController::class);
+Route::resource('win', WinController::class)->middleware('auth');

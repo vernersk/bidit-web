@@ -14,10 +14,20 @@
                     <p class="card-text">{{ $auction->product->description }}</p>
                 </div>
                 <div class="my-2">
-                    <div class="card-text block">Highest bid: <span>${{$auction->highestBid->amount}}</span> </div>
+                    @if(isset($auction->highestBid->amount))
+                        <div class="my-2">
+                            <div class="card-text block">
+                                <div>Highest bidder: </div>
+                                <div class="h5 rounded-sm p-2 text-white d-flex justify-content-between bg-info">
+                                    <div>{{$auction->highestBid->user}}</div>
+                                    <div>${{$auction->highestBid->amount}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <div class="mb-3">
-                    <a class="btn btn-primary w-100" href="{{route('auction.show', $auction->product)}}">Place a bid</a>
+                    <a class="btn btn-primary w-100" href="{{route('auction.show', $auction)}}">Place a bid</a>
                 </div>
             </div>
         <?php endforeach; ?>

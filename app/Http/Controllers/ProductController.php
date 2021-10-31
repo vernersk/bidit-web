@@ -23,8 +23,9 @@ class ProductController extends Controller
      *
      * @return Renderable
      */
-    public function index(): Renderable
+    public function index()
     {
+
     }
 
     /**

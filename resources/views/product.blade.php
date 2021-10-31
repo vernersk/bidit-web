@@ -32,7 +32,7 @@
                         <form action="{{route('bid.store', ['auctionId' => $auction->id])}}" method="POST" class="row">
                             @csrf
                             <div class="col-6">
-                                <input type="number" name="bid" value="{{$bids[count($bids)-1]->amount + 1}}" class="w-100 h4">
+                                <input type="number" name="bid" value="{{$highestBid->amount + 1}}" class="w-100 h4">
                             </div>
                             <div class="col-6">
                                 <button type="submit" class="btn btn-primary w-100 h4">

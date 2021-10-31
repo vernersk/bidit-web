@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Factories\AuctionUsersFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             UserSeeder::class,
             AuctionSeeder::class,
+            AuctionUsersSeeder::class,
             BidSeeder::class,
         ]);
     }
