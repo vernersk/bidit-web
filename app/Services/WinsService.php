@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class BankService
+class WinsService
 {
 
 }

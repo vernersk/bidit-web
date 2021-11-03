@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
-use App\Models\User;
+use App\Services\AuctionService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
 class AuctionController extends Controller
 {
+    private $auctionService;
+
     /**
      * Create a new controller instance.
      *
@@ -17,6 +19,7 @@ class AuctionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->auctionService = new AuctionService();
     }
 
     /**
@@ -25,23 +28,7 @@ class AuctionController extends Controller
      */
     public function index(): Renderable
     {
-        $auctions = Auction::all();
-
-        foreach($auctions as $auction){
-            $bid = $auction->bids()
-                ->orderBy('amount', 'DESC')
-                ->first();
-
-            if(isset($bid->amount)){
-                $auction->highestBid = $bid;
-                $user = User::where('id', $bid->user_id)->first();
-                $auction->highestBid->user = $user->name;
-            }
-
-
-        }
-        var_dump($auctions[1]->product->name);
-        return view('home', ['auctions' => $auctions]);
+        return view('home', ['auctions' => $this->auctionService->get()]);
     }
 
     /**
@@ -87,10 +74,14 @@ class AuctionController extends Controller
 
         $highestBid = $bids[0] ?? 0;
 
+        $data = [
+            'auction' => $auction,
+            'bids' => $orderedBids,
+            'highestBid' => $highestBid,
+        ];
+
         return view('product')
-            ->with('auction', $auction)
-            ->with('bids', $orderedBids)
-            ->with('highestBid', $highestBid);
+            ->with('data', $data);
     }
 
     /**
@@ -113,7 +104,8 @@ class AuctionController extends Controller
      */
     public function update(Request $request, Auction $auction)
     {
-        //
+        $auctionService = new AuctionService();
+        $auctionService->complete($auction->id, auth()->id());
     }
 
     /**

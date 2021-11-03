@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Win;
+use App\Params\UserAuctionParam;
+use App\Services\AuctionService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,15 @@ class WinController extends Controller
      */
     public function index()
     {
-        return view('user-wins', );
+        $auctionService = new AuctionService();
+        $par = new UserAuctionParam;
+
+        $par->userId = auth()->id();
+        $par->isWinner = true;
+        $par->isComplete = true;
+        $data = $auctionService->getUserBidAuctions($par);
+
+        return view('user-wins', compact('data'));
     }
 
     /**
@@ -25,18 +35,16 @@ class WinController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -64,9 +72,6 @@ class WinController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Win  $win
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Win $win)
     {

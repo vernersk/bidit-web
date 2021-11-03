@@ -26,3 +26,25 @@ Route::resource('auction', AuctionController::class)->middleware('auth');
 Route::resource('bid', BidController::class)->middleware('auth');
 
 Route::resource('win', WinController::class)->middleware('auth');
+
+
+Route::get('/new1', function () {
+    return view('new1');
+});
+
+Route::get('/new2', function () {
+    return view('new2');
+});
+
+Route::get('/new3', function () {
+    return view('new3');
+});
+
+Route::get('/new4', function () {
+    return view('new4');
+});
+
+Route::get('/new5', function () {
+    return view('new5');
+});
+

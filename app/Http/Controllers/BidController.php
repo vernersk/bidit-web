@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Auction;
 use App\Models\Bid;
+use App\Params\UserAuctionParam;
+use App\Services\AuctionService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class BidController extends Controller
 {
+    private $auctionService;
+
     /**
      * Create a new controller instance.
      *
@@ -18,6 +20,7 @@ class BidController extends Controller
      */
     public function __construct()
     {
+        $this->auctionService = new AuctionService();
         $this->middleware('auth');
     }
 
@@ -28,30 +31,10 @@ class BidController extends Controller
      */
     public function index()
     {
-        $bids = Bid::query()
-            ->where('user_id',  '=', auth()->id())
-            ->get();
+        $par = new UserAuctionParam;
+        $par->userId = auth()->id();
 
-        $data = [];
-        $products = [];
-        foreach($bids as $bid){
-            if(in_array($bid->auction->product, $products)) continue;
-
-            $products[] = $bid->auction->product;
-            $highestBid = $bid->auction
-                ->bids()
-                ->join('users', 'users.id', '=', 'bids.user_id')
-                ->select(['users.id as userId', 'users.name', 'bids.amount'])
-                ->orderBy('amount', 'DESC')
-                ->first();
-
-            $data[] = [
-                'userBid' => $bid,
-                'highestBid' => $highestBid->amount ? $highestBid : 0,
-                'auction' => $bid->auction,
-                'isUserHighestBidder' => $highestBid->userId == auth()->id(),
-            ];
-        }
+        $data = $this->auctionService->getUserBidAuctions($par);
 
         return view('user-bids', compact('data'));
     }
@@ -70,20 +53,21 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
-        $auction = Auction::query()
-            ->where('id', $request->input('auctionId'))
-            ->first();
-
+        $auctionId = (int)$request->input('auctionId');
+        $auctionService = new AuctionService();
+        $auction = $auctionService->getAuctionById((int)$request->input('auctionId'));
         $highestBid = $auction->bids()->orderBy('amount', 'DESC')->first();
 
         $userBid = $request->input('bid');
 
-        if(!$highestBid->amount || $userBid > $highestBid->amount) {
-            $bid = new Bid();
-            $bid->auction_id = $request->input('auctionId');
-            $bid->user_id = Auth::id();
-            $bid->amount = $request->input('bid');
-            $bid->save();
+        if($highestBid->user != auth()->user()){
+            if(!isset($highestBid->amount) || $userBid > ceil($highestBid->amount)) {
+                $bid = new Bid();
+                $bid->auction_id = $auctionId;
+                $bid->user_id = (int)auth()->id();
+                $bid->amount = (double)$request->input('bid');
+                $bid->save();
+            }
         }
 
         return redirect()->route('auction.show', ['auction' => $auction]);
