@@ -52,7 +52,7 @@
             <div class="col-md-12">
                     <div class="form-group">
                         <button class="btn btn-primary float-right"> SUBMIT</button>
-            </div>
+                    </div>
         </div>
     </form>
 </div>
