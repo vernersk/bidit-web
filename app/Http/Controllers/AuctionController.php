@@ -47,9 +47,28 @@ class AuctionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, auction $auction)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'price'=>'required',
+            'image'=>'required|mimes:jpg,png,jpeg|max:6048',
+            'description'=>'required',
+            ]);
+        $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+
+        $request->image->move(public_path('images'),$newImageName);
+
+        //$noliktava->create($request->all());
+        $auction = auction::create([
+            'name'=>$request->input('name'),
+            'price'=>$request->input('price'),
+            'image_path'=>$newImageName,
+            'description'=>$request->input('description')
+
+        ]);
+
+        return redirect()->route('auction.index');
     }
 
     /**

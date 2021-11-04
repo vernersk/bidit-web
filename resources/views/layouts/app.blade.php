@@ -46,7 +46,7 @@
                             N4
                         </a>
                         <a href="/new5" class="text-decoration-none font-weight-bold text-black-50 px-4">
-                            N5
+                            Create Auction
                         </a>
                     </div>
 

@@ -12,6 +12,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Auction extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name' ,
+        'price',
+        'image_path',
+        'description'
+
+    ];
 
     public function product(): BelongsTo
     {
@@ -37,5 +44,7 @@ class Auction extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+
 
 }
