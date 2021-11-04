@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Auction;
+use App\Models\Bid;
+use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('products', function() {
+    return Product::all();
+});
+
+Route::get('auctions', function() {
+    return Auction::all();
+});
+
+Route::get('transactions', function() {
+    return Transaction::all();
+});
+
+Route::get('bids', function() {
+    return Bid::all();
 });
