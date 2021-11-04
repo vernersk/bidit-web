@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();   //No Controller uz view failu dati aiziet
-        return view('home', ['auctions' => $this->auctionService->get()]);
+        return view('home');
     }
 
     /**
@@ -45,7 +45,7 @@ class ProductController extends Controller
      * @param Request $request
      * @return void
      */
-    public function store(Request $request, Product  $product)
+    public function store(Request $request)
     {
         $request->validate([
             'name'=>'required',
@@ -66,7 +66,7 @@ class ProductController extends Controller
 
         ]);
 
-        return redirect()->route('product.index');
+        return redirect()->route('auction.store');
     }
 
     /**

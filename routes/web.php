@@ -27,6 +27,10 @@ Route::resource('bid', BidController::class)->middleware('auth');
 
 Route::resource('win', WinController::class)->middleware('auth');
 
+Route::resource('product', \App\Http\Controllers\ProductController::class)->middleware('auth');
+
+
+
 
 Route::get('/new1', function () {
     return view('new1');
