@@ -12,14 +12,14 @@
     width: 800px;
     height: 500px;
     margin: auto;
-    background-color: #f3f3f3;">Add Item for AUCTION
+    background-color: #f3f3f3;">Add Product
 
 
 <div class="col-md-12">
-    @include('helpers.error')
+
     <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
-
+        @include('helpers.error')
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
@@ -27,7 +27,7 @@
                     <input type="text" class="form-control" placeholder="Name" name="name">
                 </div>
             </div>
-            <div class="col-md-12">
+           <div class="col-md-12">
                 <div class="form-group">
                     <strong>Starting price:</strong>
                     <input type="number" class="form-control" placeholder="Set starting price" name="price">
@@ -51,6 +51,7 @@
                 </div>
             <div class="col-md-12">
                     <div class="form-group">
+
                         <button class="btn btn-primary float-right"> SUBMIT</button>
                     </div>
         </div>

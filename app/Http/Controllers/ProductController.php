@@ -25,8 +25,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $Products = Product::all();   //No Controller uz view failu dati aiziet
-        return view('home');
+       //$Product = Product::all();   //No Controller uz view failu dati aiziet
+        //return view('home')->with(Product::all());
     }
 
     /**
@@ -60,13 +60,14 @@ class ProductController extends Controller
         //$noliktava->create($request->all());
         $product = Product::create([
             'name'=>$request->input('name'),
-            'price'=>$request->input('price'),
+           'price'=>$request->input('price'),
             'image'=>$newImageName,
             'description'=>$request->input('description')
 
         ]);
-
-        return redirect()->route('product.store');
+        return redirect()->route('auction.index');
+      //return redirect()->route('product.index');
+        //return view('home');
     }
 
     /**
