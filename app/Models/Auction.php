@@ -13,6 +13,7 @@ class Auction extends Model
 {
     use HasFactory;
 
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
@@ -37,5 +38,7 @@ class Auction extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+
 
 }

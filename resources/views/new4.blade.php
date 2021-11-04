@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    // DO THINGS HERE 4
+    // ADD PRODUCT TO AUCTION
 @endsection
