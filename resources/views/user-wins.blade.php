@@ -23,7 +23,10 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <a class="btn btn-primary w-100" href="#">Purchase</a>
+                    <form method="post" action="{{route('purchase.address-form', ['auction' => $datum['auction']])}}">
+                        @csrf
+                        <button type="submit" class="btn btn-primary w-100">Add to cart</button>
+                    </form>
                 </div>
             </div>
             <?php endforeach; ?>

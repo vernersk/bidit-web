@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Auction;
 use App\Models\User;
 use App\Params\UserAuctionParam;
+use Illuminate\Database\Eloquent\Model;
 
 class AuctionService
 {
@@ -52,10 +53,10 @@ class AuctionService
         $auctions = [];
         foreach($userBids as $bid){
             if(in_array($bid->auction, $auctions)) continue;
+            $auctions[] = $bid->auction;
             if($bid->auction->is_complete != $par->isComplete) continue;
             if($par->isWinner && $bid->auction->winner_id != $par->userId) continue;
 
-            $auctions[] = $bid->auction;
             $highestBid = $bid->auction
                 ->bids()
                 ->join('users', 'users.id', '=', 'bids.user_id')
@@ -74,18 +75,13 @@ class AuctionService
         return $data;
     }
 
-    public function getUserWonAuctions()
-    {
-
-    }
-
-    public function getAuctionHighestBid(Auction $auction)
+    public function getAuctionHighestBid(Model $auction)
     {
         return  $auction->bids()->orderBy('amount', 'DESC')->first() ?? null;
     }
 
-    public function getAuctionById(int $auctionId)
+    public function getAuctionById(int $auctionId): ?Auction
     {
-        return Auction::query()->where('id', $auctionId)->first() ?? null;
+        return Auction::find($auctionId) ?? null;
     }
 }

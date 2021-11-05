@@ -5,6 +5,9 @@
     <div class="row g-5 justify-content-center">
         <?php foreach($data as $datum): ?>
             <div class="card col-3 m-2 shadow-sm" style="width: 18rem;">
+                <div class="mb-3 text-right">
+                    <a class="btn btn-secondary w-100" href="{{route('auction.complete',['auctionId' => $datum['auction']])}}">Complete</a>
+                </div>
                 <img
                     src="https://thumbs.dreamstime.com/b/old-worn-laced-boot-white-background-old-worn-boot-169699019.jpg"
                     class="w-100 position-relative"

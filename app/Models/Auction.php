@@ -13,7 +13,6 @@ class Auction extends Model
 {
     use HasFactory;
 
-
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
@@ -24,21 +23,19 @@ class Auction extends Model
         return $this->hasMany(Bid::class);
     }
 
-    public function transaction(): HasOne
+    public function transaction(): BelongsTo
     {
-        return $this->hasOne(Transaction::class);
+        return $this->belongsTo(Transaction::class);
     }
 
     public function winner(): HasOne
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'user_id');
     }
 
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
-
-
 
 }

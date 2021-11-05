@@ -5,18 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Bid extends Model
+class UserData extends Model
 {
     use HasFactory;
 
-
-
-    public function auction(): BelongsTo
-    {
-        return $this->belongsTo(Auction::class);
-    }
+    protected $fillable = [
+        'user_id',
+        'name',
+        'surname',
+        'address',
+        'address2',
+        'city',
+        'state',
+        'zip',
+    ];
 
     public function user(): BelongsTo
     {

@@ -60,7 +60,7 @@ class BidController extends Controller
 
         $userBid = $request->input('bid');
 
-        if($highestBid->user != auth()->user()){
+        if(!isset($highestBid->user) || $highestBid->user != auth()->user()){
             if(!isset($highestBid->amount) || $userBid > ceil($highestBid->amount)) {
                 $bid = new Bid();
                 $bid->auction_id = $auctionId;

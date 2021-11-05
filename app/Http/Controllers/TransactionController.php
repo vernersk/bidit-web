@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Params\TransactionParam;
+use App\Services\TransactionService;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    /**
+     * @var TransactionService
+     */
+    private $transactionService;
+
+    public function __construct()
+    {
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,15 +39,13 @@ class TransactionController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $par = new TransactionParam();
+        $par->userId = $request->userId;
+        $par->auctions = [$request->auction];
+        $this->transactionService->store($par);
     }
 
     /**

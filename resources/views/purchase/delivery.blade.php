@@ -11,12 +11,11 @@
             <div class="col-4 border shadow p-3 mb-5 bg-white">
                 <h3>Ship to </h3>
                 <div class="pl-3" style="font-size: 1.25em">
-                  <p>(name, surname)</p>
-                  <p>(adress)</p>
-                  <p>(city,state, zip)</p>
-                  <p>(phone nr)</p>
+                  <p>{{ $userData->name }}, {{$userData->surname}}</p>
+                  <p>{{ $userData->address }}</p>
+                  <p>{{ $userData->address2 }}</p>
+                  <p>{{ $userData->city }}, {{ $userData->state }}, {{ $userData->zip }}</p>
                 </div>
-                <button type="button" class="btn btn-secondary">Edit</button>
                 <div class="form-check pt-4">
                   <p>Prefered delivery time:</p>
                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
@@ -25,7 +24,6 @@
                   </label>
                 </div>
             </div>
-
             <div class="col-4 border shadow p-3 mb-5 bg-white">
               <h3>Confirm order</h3>
               <h4>Nosaukums</h4>

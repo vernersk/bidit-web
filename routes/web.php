@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BidController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\WinController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,28 +23,30 @@ Auth::routes();
 
 Route::get('/', [AuctionController::class, 'index'])->name('home');
 
-Route::resource('auction', AuctionController::class)->middleware('auth');
+Route::group(['middleware' => 'auth'], function () {
 
-Route::resource('bid', BidController::class)->middleware('auth');
+    Route::get('/auction/complete', [AuctionController::class, 'complete'])
+        ->name('auction.complete');
 
-Route::resource('win', WinController::class)->middleware('auth');
+    Route::resource('auction', AuctionController::class);
 
-Route::resource('product', \App\Http\Controllers\ProductController::class)->middleware('auth');
+    Route::resource('bid', BidController::class);
 
+    Route::resource('win', WinController::class);
 
+    Route::resource('product', ProductController::class);
 
+    Route::post('/purchase/address-form', [PurchaseController::class, 'addressForm'])
+        ->name('purchase.address-form');
 
-Route::get('/new1', function () {
-    return view('new1');
+    Route::post('/purchase/delivery', [PurchaseController::class, 'delivery'])
+        ->name('purchase.delivery');
+
+    Route::post('/purchase/thanks', [PurchaseController::class, 'thanks'])
+        ->name('purchase.thanks');
 });
 
-Route::get('/new2', function () {
-    return view('new2');
-});
 
-Route::get('/new3', function () {
-    return view('new3');
-});
 
 Route::get('/new4', function () {
     return view('new4');
@@ -50,5 +54,9 @@ Route::get('/new4', function () {
 
 Route::get('/new5', function () {
     return view('new5');
+});
+
+Route::fallback(function () {
+    return abort(404);
 });
 

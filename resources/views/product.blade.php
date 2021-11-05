@@ -35,7 +35,7 @@
                                 <input
                                     type="number"
                                     name="bid"
-                                    value="{{ceil($data['highestBid']->amount) ? ceil($data['highestBid']->amount) + 1 : 1}}"
+                                    value="{{isset($data['highestBid']->amount) ? ceil($data['highestBid']->amount) + 1 : 1}}"
                                     class="w-100 h4"
                                 >
                             </div>

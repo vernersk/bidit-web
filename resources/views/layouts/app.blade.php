@@ -33,21 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <div class="navbar-nav">
-                        <a href="/new1" class="text-decoration-none font-weight-bold text-black-50 px-4">
-                            N1
-                        </a>
-                        <a href="/new2" class="text-decoration-none font-weight-bold text-black-50 px-4">
-                            N2
-                        </a>
-                        <a href="/new3" class="text-decoration-none font-weight-bold text-black-50 px-4">
-                            N3
-                        </a>
-                        <a href="/new4" class="text-decoration-none font-weight-bold text-black-50 px-4">
-                            N4
-                        </a>
-                        <a href="/new5" class="text-decoration-none font-weight-bold text-black-50 px-4">
-                            Create Product
-                        </a>
+
                     </div>
 
                     <div class="navbar-nav justify-content-center w-100">

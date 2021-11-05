@@ -18,7 +18,7 @@ class CreateAuctionsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('winner_id')->nullable();
             $table->unsignedBigInteger('transaction_id')->nullable();
-            $table->boolean('isComplete')->default(false);
+            $table->boolean('is_complete')->default(false);
             $table->timestamp('expires_at');
             $table->timestamps();
 

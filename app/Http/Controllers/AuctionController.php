@@ -104,8 +104,7 @@ class AuctionController extends Controller
      */
     public function update(Request $request, Auction $auction)
     {
-        $auctionService = new AuctionService();
-        $auctionService->complete($auction->id, auth()->id());
+        $this->auctionService->complete($auction->id, auth()->id());
     }
 
     /**
@@ -117,5 +116,12 @@ class AuctionController extends Controller
     public function destroy(Auction $auction)
     {
         //
+    }
+
+    public function complete(Request $request)
+    {
+        $this->auctionService->complete((int)$request->auctionId, auth()->id());
+
+        return redirect()->back();
     }
 }
