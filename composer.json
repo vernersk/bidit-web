@@ -13,8 +13,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "twbs/bootstrap": "5.0.2",
-        "fakerphp/faker": "^1.9.1",
-        "fzaninotto/faker": "^1.9.2"
+        "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
