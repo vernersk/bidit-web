@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <my-wins></my-wins>
+    <shopping-cart></shopping-cart>
 @endsection

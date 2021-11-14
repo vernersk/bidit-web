@@ -3,15 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bid;
+use App\Params\BidParam;
 use App\Params\UserAuctionParam;
 use App\Services\AuctionService;
+use App\Services\BidService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BidController extends Controller
 {
+    /**
+     * @var BidService
+     */
+    private $bidService;
+
+    /**
+     * @var AuctionService
+     */
     private $auctionService;
+
 
     /**
      * Create a new controller instance.
@@ -21,6 +32,7 @@ class BidController extends Controller
     public function __construct()
     {
         $this->auctionService = new AuctionService();
+        $this->bidService = new BidService();
         $this->middleware('auth');
     }
 
@@ -33,8 +45,9 @@ class BidController extends Controller
     {
         $par = new UserAuctionParam;
         $par->userId = auth()->id();
+        $par->isComplete = false;
 
-        $data = $this->auctionService->getUserBidAuctions($par);
+        $data = $this->auctionService->getAuctionsUserBidOn($par);
 
         return view('user-bids', compact('data'));
     }
@@ -54,23 +67,16 @@ class BidController extends Controller
     public function store(Request $request)
     {
         $auctionId = (int)$request->input('auctionId');
+        $bid = (double)$request->input('bid');
         $auctionService = new AuctionService();
-        $auction = $auctionService->getAuctionById((int)$request->input('auctionId'));
-        $highestBid = $auction->bids()->orderBy('amount', 'DESC')->first();
 
-        $userBid = $request->input('bid');
+        $par = new BidParam();
+        $par->amount = $bid;
+        $par->auction = $auctionService->getAuctionById($auctionId);
 
-        if(!isset($highestBid->user) || $highestBid->user != auth()->user()){
-            if(!isset($highestBid->amount) || $userBid > ceil($highestBid->amount)) {
-                $bid = new Bid();
-                $bid->auction_id = $auctionId;
-                $bid->user_id = (int)auth()->id();
-                $bid->amount = (double)$request->input('bid');
-                $bid->save();
-            }
-        }
+        $this->bidService->create($par);
 
-        return redirect()->route('auction.show', ['auction' => $auction]);
+        return redirect()->route('auction.show', ['auction' => $par->auction]);
     }
 
     /**

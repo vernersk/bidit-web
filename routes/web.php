@@ -4,7 +4,6 @@ use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\WinController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +31,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('bid', BidController::class);
 
-    Route::resource('win', WinController::class);
+    Route::get('my-wins', function () {
+        return view('user-wins');
+    })->name('my-wins');
+
+    Route::get('cart', function () {
+        return view('shopping-cart');
+    })->name('cart');
+
+    Route::get('checkout', function () {
+        return view('checkout');
+    })->name('checkout');
 
     Route::resource('product', ProductController::class);
 
@@ -44,6 +53,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/purchase/thanks', [PurchaseController::class, 'thanks'])
         ->name('purchase.thanks');
+
+    Route::get('/cart', function(){
+        return view('/purchase/shopping-cart');
+    })->name('cart');
 });
 
 

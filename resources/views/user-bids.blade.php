@@ -13,15 +13,15 @@
                     class="w-100 position-relative"
                 >
                 <div class="py-2 flex-grow-1">
-                    <h5 class="card-title">{{ $datum['auction']->product->name }}</h5>
-                    <p class="card-text">{{ $datum['auction']->product->description }}</p>
+                    <h5 class="card-title">{{ $datum['product']['name'] }}</h5>
+                    <p class="card-text">{{ $datum['product']['description'] }}</p>
                 </div>
                 <div class="my-2">
                     <div class="card-text block">
                         <div>Highest bidder: </div>
                         <div class="h5 rounded-sm p-2 text-white d-flex justify-content-between {{ $datum['isUserHighestBidder'] ? 'bg-success' : 'bg-danger'}}">
-                            <div class="">{{$datum['highestBid']->name}}</div>
-                            <div class="">${{$datum['highestBid']->amount}}</div>
+                            <div class="">{{$datum['highestBid']['name']}}</div>
+                            <div class="">${{$datum['highestBid']['amount']}}</div>
                         </div>
                     </div>
                 </div>

@@ -9,6 +9,8 @@ class UserAuctionParam
      */
     public $userId = null;
 
+    public $auctionIds = -1;
+
     /**
      * @var bool $isComplete
      */
@@ -18,11 +20,4 @@ class UserAuctionParam
      * @var bool $isWinner
      */
     public $isWinner = false;
-
-    public function getRpc(){
-        return [
-            'userId' => $this->userId,
-            ''
-        ];
-    }
 }

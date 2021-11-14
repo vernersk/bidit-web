@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             UserSeeder::class,
             AuctionSeeder::class,
-            AuctionUsersSeeder::class,
-            BidSeeder::class,
         ]);
     }
 }

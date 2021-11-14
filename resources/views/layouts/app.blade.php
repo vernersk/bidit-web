@@ -44,8 +44,11 @@
                             <a href="{{route('bid.index')}}" class="text-decoration-none font-weight-bold text-black-50 px-4">
                                 MY BIDS
                             </a>
-                            <a href="{{route('win.index')}}" class="text-decoration-none font-weight-bold text-black-50 px-4">
+                            <a href="{{route('my-wins')}}" class="text-decoration-none font-weight-bold text-black-50 px-4">
                                 MY WINS
+                            </a>
+                            <a href="{{route('cart')}}" class="text-decoration-none font-weight-bold text-black-50 px-4">
+                                CART
                             </a>
                         @endauth
                     </div>

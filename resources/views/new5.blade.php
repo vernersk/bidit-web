@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-// Function to allow users to add item for bidding
-<div style="
+    // Function to allow users to add item for bidding
+    <div style="
     display: inline-block;
     position: fixed;
     top: 0;
@@ -14,49 +14,49 @@
     margin: auto;
     background-color: #f3f3f3;">Add Product
 
+        <div class="col-md-12">
 
-<div class="col-md-12">
+            <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @include('helpers.error')
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong>Name:</strong>
+                            <input type="text" class="form-control" placeholder="Name" name="name">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong>Starting price:</strong>
+                            <input type="number" class="form-control" placeholder="Set starting price" name="price">
+                        </div>
+                    </div>
 
-    <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @include('helpers.error')
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <strong>Name:</strong>
-                    <input type="text" class="form-control" placeholder="Name" name="name">
-                </div>
-            </div>
-           <div class="col-md-12">
-                <div class="form-group">
-                    <strong>Starting price:</strong>
-                    <input type="number" class="form-control" placeholder="Set starting price" name="price">
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <strong>Image:</strong>
-                    <input type="file" class="form-control"  name="image">
-                </div>
-            </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong>Image:</strong>
+                            <input type="file" class="form-control" name="image">
+                        </div>
+                    </div>
 
 
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <strong>Description</strong>
-                        <input type="text" class="form-control" placeholder="Add Description, for selecting item" name="description">
+                        <input type="text" class="form-control" placeholder="Add Description, for selecting item"
+                               name="description">
                     </div>
                 </div>
-            <div class="col-md-12">
+                <div class="col-md-12">
                     <div class="form-group">
 
                         <button class="btn btn-primary float-right"> SUBMIT</button>
                     </div>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
-</div>
+    </div>
 
 @endsection

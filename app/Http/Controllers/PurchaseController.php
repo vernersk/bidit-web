@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Auction;
 use App\Models\UserData;
 use App\Services\AuctionService;
 use Illuminate\Http\Request;
@@ -52,10 +51,5 @@ class PurchaseController extends Controller
           'userData' => $userData,
           'auction' => $auction,
       ]);
-  }
-
-  public function getValidationFactory()
-  {
-
   }
 }

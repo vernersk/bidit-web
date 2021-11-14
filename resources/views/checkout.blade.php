@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    PRODUCT CART
+    <checkout></checkout>
 @endsection

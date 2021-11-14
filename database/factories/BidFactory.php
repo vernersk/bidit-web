@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Auction;
-use App\Models\AuctionUsers;
+use App\Models\AuctionUser;
 use App\Models\Bid;
 use App\Models\User;
 use Exception;
@@ -26,13 +26,8 @@ class BidFactory extends Factory
      */
     public function definition(): array
     {
-        $auctionUsers = AuctionUsers::all()->toArray();
-        $auction = $this->faker->randomElement($auctionUsers);
-
         return [
-            'amount' => random_int(1, 1000) + random_int(1,100) / 100,
-            'user_id' => $auction['user_id'],
-            'auction_id' => $auction['auction_id'],
+
         ];
     }
 }

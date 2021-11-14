@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -21,12 +22,11 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Renderable
+     * @return Collection|Product[]
      */
     public function index()
     {
-       //$Product = Product::all();   //No Controller uz view failu dati aiziet
-        //return view('home')->with(Product::all());
+        return Product::all();
     }
 
     /**

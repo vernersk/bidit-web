@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\BidController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\WinController;
 use App\Models\Auction;
 use App\Models\Bid;
 use App\Models\Product;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,3 +36,10 @@ Route::get('transactions', function() {
 Route::get('bids', function() {
     return Bid::all();
 });
+
+Route::apiResource('product', ProductController::class);
+Route::apiResource('win', WinController::class);
+Route::apiResource('checkout', PurchaseController::class);
+
+
+

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuctionUsersTable extends Migration
+class CreateAuctionUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateAuctionUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('auction_users', function (Blueprint $table) {
+        Schema::create('auction_user', function (Blueprint $table) {
             $table->unsignedBigInteger('auction_id');
             $table->unsignedBigInteger('user_id');
-            $table->timestamps();
-            $table->foreign('auction_id')->references('id')->on('auctions');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +26,6 @@ class CreateAuctionUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auction_users');
+        Schema::dropIfExists('auction_user');
     }
 }

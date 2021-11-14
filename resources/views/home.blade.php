@@ -10,17 +10,17 @@
                     class="w-100 position-relative"
                 >
                 <div class="py-2 flex-grow-1">
-                    <h5 class="card-title">{{ $auction->product->name }}</h5>
-                    <p class="card-text">{{ $auction->product->description }}</p>
+                    <h5 class="card-title">{{ $auction['product']['name'] }}</h5>
+                    <p class="card-text">{{ $auction['product']['description'] }}</p>
                 </div>
                 <div class="my-2">
-                    @if(isset($auction->highestBid->amount))
+                    @if(isset($auction['highestBid']['amount']))
                         <div class="my-2">
                             <div class="card-text block">
                                 <div>Highest bidder: </div>
                                 <div class="h5 rounded-sm p-2 text-white d-flex justify-content-between bg-info">
-                                    <div>{{$auction->highestBid->user}}</div>
-                                    <div>${{$auction->highestBid->amount}}</div>
+                                    <div>{{$auction['highestBid']['name']}}</div>
+                                    <div>${{$auction['highestBid']['amount']}}</div>
                                 </div>
                             </div>
                         </div>
