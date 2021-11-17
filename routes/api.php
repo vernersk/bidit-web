@@ -20,23 +20,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('products', function() {
-    return Product::all();
-});
+// Example: http://bidit-web.herokuapp.com/api/users/45/bids
 
+// All users
 Route::get('users', [UserApiController::class, 'get']);
+//Specific user
 Route::get('users/{userId}', [UserApiController::class, 'getById']);
+// Every auction user has bid on
 Route::get('users/{userId}/bids', [UserApiController::class, 'getAuctionsUserBidOn']);
+// Every auction user has won
 Route::get('users/{userId}/wins', [UserApiController::class, 'getWonAuctions']);
 
+// All auctions
 Route::get('auctions', [AuctionApiController::class, 'get']);
+// Add a new bid to an auction
 // Required API form-data: auctionId, bid, userId
 Route::post('auctions/bids/create', [AuctionApiController::class, 'bid']);
+// Get one auction
 Route::get('auctions/{auctionId}', [AuctionApiController::class, 'getById']);
+// Get auctions that user has bid on
 Route::get('auctions/users/{userId}', [AuctionApiController::class, 'getByUserId']);
+// For debugging purposes, completes an auction
 Route::get('auctions/{auctionId}/users/{userId}/complete', [AuctionApiController::class, 'complete']);
+// Get all products
+Route::apiResource('products', ProductController::class);
 
-Route::apiResource('product', ProductController::class);
+
 Route::apiResource('wins', WinController::class);
 Route::apiResource('checkout', PurchaseController::class);
 Route::apiResource('purchase', PurchaseController::class);
