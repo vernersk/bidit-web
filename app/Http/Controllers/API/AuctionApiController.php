@@ -44,12 +44,15 @@ class AuctionApiController extends Controller
         return $this->service->getAuctionsUserBidOn($par);
     }
 
-    public function bid(Request $request): bool
+    public function bid(Request $request)
     {
         $bidService = new BidService();
 
         $auctionId = (int)$request->input('auctionId');
         $bid = (double)$request->input('bid');
+
+        return [$auctionId, $bid];
+
         $auctionService = new AuctionService();
 
         $par = new BidParam();

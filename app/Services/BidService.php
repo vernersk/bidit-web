@@ -14,7 +14,7 @@ class BidService
             ->get();
     }
 
-    public function create(BidParam $par)
+    public function create(BidParam $par): bool
     {
         $user = $par->user ?? auth()->user();
 
