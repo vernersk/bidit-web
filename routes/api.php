@@ -40,6 +40,7 @@ Route::get('bids', function() {
 Route::apiResource('product', ProductController::class);
 Route::apiResource('win', WinController::class);
 Route::apiResource('checkout', PurchaseController::class);
+Route::apiResource('purchase', PurchaseController::class);
 
 
 

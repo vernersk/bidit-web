@@ -35,28 +35,20 @@ Route::group(['middleware' => 'auth'], function () {
         return view('user-wins');
     })->name('my-wins');
 
-    Route::get('cart', function () {
-        return view('shopping-cart');
+    Route::get('cart', function(){
+        return view('/purchase/shopping-cart');
     })->name('cart');
 
     Route::get('checkout', function () {
         return view('checkout');
     })->name('checkout');
 
-    Route::resource('product', ProductController::class);
-
-    Route::post('/purchase/address-form', [PurchaseController::class, 'addressForm'])
-        ->name('purchase.address-form');
-
-    Route::post('/purchase/delivery', [PurchaseController::class, 'delivery'])
+    Route::get('/purchase/delivery', [PurchaseController::class, 'delivery'])
         ->name('purchase.delivery');
 
-    Route::post('/purchase/thanks', [PurchaseController::class, 'thanks'])
-        ->name('purchase.thanks');
+    Route::resource('product', ProductController::class);
 
-    Route::get('/cart', function(){
-        return view('/purchase/shopping-cart');
-    })->name('cart');
+
 });
 
 

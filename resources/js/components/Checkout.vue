@@ -4,8 +4,8 @@
             <div class="justify-content-between col-md-8" style="height: 500px;">
                 <div class="col-12 border shadow p-3 mb-5 bg-white">
                     <h3>Delivery information</h3>
-                    <p>Please enter information about the person making this order and the exact address of delivery.</p>
-                    <form method="post" action="">
+                    <p>Please enter information about the person making this order and the exact address of delivery. AAAAAAAAAAAA</p>
+                    <form method="post" action="/api/purchase/delivery">
                         <input hidden name="auctionId" value="">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -90,7 +90,10 @@ export default {
 
     methods: {
         getDeliveryData(){
-            axios.get()
+            const auctionIds = this.getAuctionsInCart();
+            axios.get('api/purchase/delivery').then( response => {
+                console.log(response);
+            });
         },
 
         getSubtotal(){

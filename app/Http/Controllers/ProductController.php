@@ -30,22 +30,12 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
      * @return void
      */
-    public function store(Request $request, Product $product )
+    public function store(Request $request, Product $product)
     {
         $request->validate([
             'name'=>'required',
