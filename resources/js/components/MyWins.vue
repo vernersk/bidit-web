@@ -43,7 +43,7 @@ export default {
     methods: {
         getUserWins()
         {
-            axios.get('api/win').then( response => {
+            axios.get('api/wins').then( response => {
                 this.data = response.data;
                 console.log(this.data);
             });

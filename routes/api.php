@@ -26,6 +26,7 @@ Route::get('products', function() {
 
 Route::get('users', [UserApiController::class, 'get']);
 Route::get('users/{userId}', [UserApiController::class, 'getById']);
+Route::get('users/{userId}/bids', [UserApiController::class, 'getAuctionsUserBidOn']);
 Route::get('users/{userId}/wins', [UserApiController::class, 'getWonAuctions']);
 
 Route::get('auctions', [AuctionApiController::class, 'get']);
@@ -36,7 +37,7 @@ Route::get('auctions/users/{userId}', [AuctionApiController::class, 'getByUserId
 Route::get('auctions/{auctionId}/users/{userId}/complete', [AuctionApiController::class, 'complete']);
 
 Route::apiResource('product', ProductController::class);
-Route::apiResource('win', WinController::class);
+Route::apiResource('wins', WinController::class);
 Route::apiResource('checkout', PurchaseController::class);
 Route::apiResource('purchase', PurchaseController::class);
 

@@ -32,17 +32,6 @@ class AuctionApiController extends Controller
         return $this->service->getAuctionsByUserId($userId);
     }
 
-    public function getAuctionsUserBidOn(int $userId, bool $isWinner = false, bool $isComplete = false, $auctionIds = -1): array
-    {
-        $par = new UserAuctionParam();
-        $par->userId = $userId;
-        $par->isWinner = $isWinner;
-        $par->isComplete = $isComplete;
-        $par->auctionIds = $auctionIds;
-
-        return $this->service->getAuctionsUserBidOn($par);
-    }
-
     public function bid(Request $request)
     {
         $bidService = new BidService();

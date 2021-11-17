@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+
 use App\Http\Controllers\Controller;
+use App\Models\Auction;
 use App\Models\User;
+use App\Params\UserAuctionParam;
+use App\Services\AuctionService;
+use Illuminate\Http\Request;
 use App\Models\UserData;
 use App\Services\WinService;
-use Illuminate\Http\Request;
 
 class UserApiController extends Controller
 {
@@ -34,8 +38,16 @@ class UserApiController extends Controller
         return $service->getUserWins($userId);
     }
 
-    public function getAdditionalInfo()
+    public function getAuctionsUserBidOn($userId): array
     {
+        $par = new UserAuctionParam();
+        $par->userId = $userId;
+        $par->isWinner = false;
+        $par->isComplete = false;
 
+        $auctionService = new AuctionService();
+
+        return $auctionService->getAuctionsUserBidOn($par);
     }
+
 }
