@@ -34,7 +34,6 @@ Route::get('auctions/{auctionId}', [AuctionApiController::class, 'getById']);
 Route::get('auctions/users/{userId}', [AuctionApiController::class, 'getByUserId']);
 Route::get('auctions/{auctionId}/users/{userId}/complete', [AuctionApiController::class, 'complete']);
 
-
 Route::apiResource('product', ProductController::class);
 Route::apiResource('win', WinController::class);
 Route::apiResource('checkout', PurchaseController::class);
