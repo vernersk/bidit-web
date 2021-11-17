@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Auction;
-use App\Params\AuctionParam;
+use App\Models\User;
 use App\Params\BidParam;
 use App\Params\UserAuctionParam;
 use App\Services\AuctionService;
@@ -50,13 +49,11 @@ class AuctionApiController extends Controller
 
         $auctionId = (int)$request->input('auctionId');
         $bid = (double)$request->input('bid');
-
-        return [$auctionId, $bid];
-
         $auctionService = new AuctionService();
 
         $par = new BidParam();
         $par->amount = $bid;
+        $par->user = User::find($request->input('userId'));
         $par->auction = $auctionService->getAuctionById($auctionId);
 
         return $bidService->create($par);
