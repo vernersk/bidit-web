@@ -52,12 +52,6 @@ class BidController extends Controller
         return view('user-bids', compact('data'));
     }
 
-
-    public function create(Request $request)
-    {
-
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -77,50 +71,5 @@ class BidController extends Controller
         $this->bidService->create($par);
 
         return redirect()->route('auction.show', ['auction' => $par->auction]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Bid $bid
-     * @return void
-     */
-    public function show(Bid $bid)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Bid $bid
-     * @return void
-     */
-    public function edit(Bid $bid)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Bid $bid
-     * @return void
-     */
-    public function update(Request $request, Bid $bid)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Bid $bid
-     * @return void
-     */
-    public function destroy(Bid $bid)
-    {
-        //
     }
 }

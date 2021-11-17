@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\BidController;
+use App\Http\Controllers\API\AuctionApiController;
+use App\Http\Controllers\API\UserApiController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\WinController;
-use App\Models\Auction;
-use App\Models\Bid;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
@@ -25,22 +24,24 @@ Route::get('products', function() {
     return Product::all();
 });
 
-Route::get('auctions', function() {
-    return Auction::all();
-});
+Route::get('users', [UserApiController::class, 'get']);
+Route::get('users/{userId}', [UserApiController::class, 'getById']);
+Route::get('users/{userId}/wins', [UserApiController::class, 'getWonAuctions']);
 
-Route::get('transactions', function() {
-    return Transaction::all();
-});
+Route::get('auctions', [AuctionApiController::class, 'get']);
+Route::post('auctions/bids/create', [AuctionApiController::class, 'bid']);
+Route::get('auctions/{auctionId}', [AuctionApiController::class, 'getById']);
+Route::get('auctions/users/{userId}', [AuctionApiController::class, 'getByUserId']);
+Route::get('auctions/{auctionId}/users/{userId}/complete', [AuctionApiController::class, 'complete']);
 
-Route::get('bids', function() {
-    return Bid::all();
-});
 
 Route::apiResource('product', ProductController::class);
 Route::apiResource('win', WinController::class);
 Route::apiResource('checkout', PurchaseController::class);
 Route::apiResource('purchase', PurchaseController::class);
 
+Route::get('transactions', function() {
+    return Transaction::all();
+});
 
 

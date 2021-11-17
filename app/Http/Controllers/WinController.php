@@ -21,6 +21,6 @@ class WinController extends Controller
     {
         $auctionIds = (bool)$request->get('isCart') ? $request->get('auctionIds') : -1;
 
-        return $this->service->getUserWins($auctionIds, $request->get('userId') ?? null);
+        return $this->service->getUserWins($request->get('userId') ?? null, $auctionIds);
     }
 }

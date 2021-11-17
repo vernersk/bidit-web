@@ -6,7 +6,7 @@ use App\Params\UserAuctionParam;
 
 class WinService
 {
-    public function getUserWins($auctionIds = -1, $userId = null){
+    public function getUserWins($userId = null, $auctionIds = -1){
         $auctionService = new AuctionService();
         $par = new UserAuctionParam;
         $par->userId = $userId ?? auth()->id();

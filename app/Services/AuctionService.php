@@ -17,12 +17,15 @@ class AuctionService
         $auction->is_complete = 1;
         $auction->users()->attach($userId);
         $auction->save();
+
+        return (bool)$auction->is_complete;
     }
 
     /**
      * @return Auction[]
      */
-    public function get(){
+    public function get(): array
+    {
         $auctions = Auction::all()
             ->where('isComplete', '=', false);
 
@@ -39,6 +42,34 @@ class AuctionService
         return $data;
     }
 
+    public function getTopById($auctionId): array
+    {
+        $auction = Auction::find($auctionId);
+
+        $bids = $auction
+            ->bids()
+            ->join('users', 'users.id', '=', 'bids.user_id')
+            ->select('users.name', 'bids.amount')
+            ->orderBy('amount', 'DESC')
+            ->limit(6)
+            ->get();
+
+        $orderedBids = [];
+        $count = count($bids);
+        for($i = 0; $i < $count; $i++){
+            $orderedBids[$i] = $bids[($count-1)-$i];
+        }
+
+        $highestBid = $bids[0] ?? 0;
+
+        return [
+            'auction' => $auction,
+            'product' => $auction->product,
+            'bids' => $orderedBids,
+            'highestBid' => $highestBid,
+        ];
+    }
+
     /**
      * @param UserAuctionParam $par
      * @return array
@@ -49,18 +80,9 @@ class AuctionService
 
         $data = [];
         foreach($auctions as $auction){
-            if($auction->is_complete != $par->isComplete) continue;
-            if($par->isWinner && $auction->winner_id != $par->userId) continue;
-
-            $highestBid = $this->getAuctionHighestBid($auction);
-
-            $data[] = [
-                'auction' => $auction,
-                'bids' => $auction->bids(),
-                'highestBid' => $highestBid,
-                'product' => $auction->product,
-                'isUserHighestBidder' => $highestBid->userId == $par->userId,
-            ];
+            if($auction['auction']->is_complete != $par->isComplete) continue;
+            if($par->isWinner && $auction['auction']->winner_id != $par->userId) continue;
+            $data[] = $auction;
         }
 
         return $data;
@@ -104,7 +126,15 @@ class AuctionService
 
             if(empty($datum)) continue;
 
-            $data[] = $auction;
+            $highestBid = $this->getAuctionHighestBid($auction);
+
+            $data[] = [
+                'auction' => $auction,
+                'bids' => $auction->bids,
+                'highestBid' => $highestBid,
+                'product' => $auction->product,
+                'isUserHighestBidder' => $highestBid->userId == $userId,
+            ];
         }
 
         return $data;
