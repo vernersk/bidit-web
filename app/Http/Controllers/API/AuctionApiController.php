@@ -49,9 +49,9 @@ class AuctionApiController extends Controller
         $par->user = User::find($request->input('userId'));
         $par->auction = $auctionService->getAuctionById($auctionId);
 
-        broadcast(new OnBidPlaced($par->auction))->via('pusher');
-
         $bidService->create($par);
+
+        broadcast(new OnBidPlaced($par->auction))->via('pusher');
     }
 
     public function complete($auctionId, $userId)
