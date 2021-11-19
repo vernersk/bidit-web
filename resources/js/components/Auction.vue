@@ -25,20 +25,20 @@
                         </table>
                     </div>
                 </div>
-                <div class="mt-2">
-                        <div class="col-6">
-                            <input
-                                type="number"
-                                name="bid"
-                                v-model:value="bid"
-                                class="w-100 h4"
-                            >
-                        </div>
-                        <div class="col-6">
-                            <a @pre.prevent @click="placeBid(this)" type="submit" class="btn btn-primary w-100 h4">
-                                Place a bid
-                            </a>
-                        </div>
+                <div class="mt-2 row text-right">
+                    <div class="col-6">
+                        <input
+                            type="number"
+                            name="bid"
+                            :value="bid"
+                            class="w-100 h4"
+                        >
+                    </div>
+                    <div class="col-6">
+                        <a @pre.prevent @click="placeBid(this)" type="submit" class="btn btn-primary w-100 h4">
+                            Place a bid
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -81,7 +81,8 @@ export default {
         getData() {
             axios.get('/api/auctions/' + this.auctionId).then( response => {
                 this.data = response.data;
-                console.log(this.data);
+            }).then( () => {
+                this.bid = this.data.highestBid.amount + 1 ?? 0;
             });
         },
 
