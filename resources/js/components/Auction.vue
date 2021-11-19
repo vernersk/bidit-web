@@ -10,7 +10,7 @@
 
             <div v-if="data.auction" class="col-md-7">
                 <div class="pb-4">
-                    <h1 class="card-title">{{ data.product.description}}</h1>
+                    <h1 class="card-title">{{ data.product.name}}</h1>
                     <p class="card-text">{{ data.product.description}}</p>
                 </div>
                 <div class="">
