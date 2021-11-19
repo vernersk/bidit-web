@@ -16,7 +16,7 @@ class BidService
 
     public function create(BidParam $par): bool
     {
-        $user = $par->user ?? auth()->user();
+        $user = $par->user;
 
         $auctionService = new AuctionService();
         $highestBid = $auctionService->getAuctionHighestBid($par->auction);

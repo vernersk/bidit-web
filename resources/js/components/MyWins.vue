@@ -36,6 +36,10 @@ export default {
         inCart: JSON.parse(window.localStorage.getItem("cart")) ?? [],
     }),
 
+    watch: {
+
+    },
+
     mounted() {
         this.getUserWins();
     },
@@ -59,8 +63,7 @@ export default {
 
         goToCart(){
             window.location.href = '/cart';
-        }
-
+        },
     }
 }
 </script>

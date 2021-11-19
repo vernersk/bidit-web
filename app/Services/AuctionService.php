@@ -49,7 +49,7 @@ class AuctionService
         $bids = $auction
             ->bids()
             ->join('users', 'users.id', '=', 'bids.user_id')
-            ->select('users.name', 'bids.amount')
+            ->select('users.id', 'users.name', 'bids.amount')
             ->orderBy('amount', 'DESC')
             ->limit(6)
             ->get();
@@ -67,6 +67,7 @@ class AuctionService
             'product' => $auction->product,
             'bids' => $orderedBids,
             'highestBid' => $highestBid,
+
         ];
     }
 
@@ -92,7 +93,7 @@ class AuctionService
      * @param Model $auction
      * @return Bid|null
      */
-    public function getAuctionHighestBid(Model $auction): ?Bid
+    public function getAuctionHighestBid(Auction $auction): ?Bid
     {
         return $auction->bids()
             ->join('users', 'users.id', '=', 'bids.user_id')
@@ -101,9 +102,9 @@ class AuctionService
             ->first();
     }
 
-    public function getAuctionById(int $auctionId): ?Auction
+    public function getAuctionById($auctionId): ?Auction
     {
-        return Auction::find($auctionId) ?? null;
+        return Auction::find($auctionId);
     }
 
     /**

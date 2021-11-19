@@ -27,7 +27,7 @@
                     @endif
                 </div>
                 <div class="mb-3">
-                    <a class="btn btn-primary w-100" href="{{route('auction.show', $auction)}}">Place a bid</a>
+                    <a class="btn btn-primary w-100" href="{{route('auction.show', $auction['auction']['id'])}}">Place a bid</a>
                 </div>
             </div>
         <?php endforeach; ?>

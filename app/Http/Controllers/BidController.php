@@ -60,7 +60,7 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
-        $auctionId = (int)$request->input('auctionId');
+        $auctionId = $request->input('auctionId');
         $bid = (double)$request->input('bid');
         $auctionService = new AuctionService();
 

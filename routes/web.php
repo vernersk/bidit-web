@@ -27,9 +27,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/auction/complete', [AuctionController::class, 'complete'])
         ->name('auction.complete');
 
-    Route::resource('auction', AuctionController::class);
+
 
     Route::resource('bid', BidController::class);
+
 
     Route::get('my-wins', function () {
         return view('user-wins');
@@ -48,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('product', ProductController::class);
 
-
+    Route::resource('auction', AuctionController::class);
 });
 
 

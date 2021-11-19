@@ -37,10 +37,9 @@ class AuctionController extends Controller
      */
     public function show(Auction $auction)
     {
-        $data = $this->auctionService->getTopById($auction->id);
-
-        return view('product')
-            ->with('data', $data);
+        return view('auction')
+            ->with('auctionId', $auction->id)
+            ->with('userId', auth()->id());
     }
 
     /**

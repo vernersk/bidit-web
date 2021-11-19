@@ -35,12 +35,14 @@ Route::get('users/{userId}/wins', [UserApiController::class, 'getWonAuctions']);
 Route::get('auctions', [AuctionApiController::class, 'get']);
 // Add a new bid to an auction
 // Required API form-data: auctionId, bid, userId
-Route::post('auctions/bids/create', [AuctionApiController::class, 'bid']);
-// Get one auction
+Route::post('/auctions/bids/create', [AuctionApiController::class, 'bid']);
+
 Route::get('auctions/{auctionId}', [AuctionApiController::class, 'getById']);
+
+
 // Get auctions that user has bid on
 Route::get('auctions/users/{userId}', [AuctionApiController::class, 'getByUserId']);
-// For debugging purposes, completes an auction
+//// For debugging purposes, completes an auction
 Route::get('auctions/{auctionId}/users/{userId}/complete', [AuctionApiController::class, 'complete']);
 // Get all products
 Route::apiResource('products', ProductController::class);

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\OnBidPlaced;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Params\BidParam;
-use App\Params\UserAuctionParam;
 use App\Services\AuctionService;
 use App\Services\BidService;
 use Illuminate\Http\Request;
@@ -34,9 +34,13 @@ class AuctionApiController extends Controller
 
     public function bid(Request $request)
     {
+
+
         $bidService = new BidService();
 
         $auctionId = (int)$request->input('auctionId');
+
+
         $bid = (double)$request->input('bid');
         $auctionService = new AuctionService();
 
@@ -45,7 +49,9 @@ class AuctionApiController extends Controller
         $par->user = User::find($request->input('userId'));
         $par->auction = $auctionService->getAuctionById($auctionId);
 
-        return $bidService->create($par);
+        broadcast(new OnBidPlaced($par->auction))->via('pusher');
+
+        $bidService->create($par);
     }
 
     public function complete($auctionId, $userId)
