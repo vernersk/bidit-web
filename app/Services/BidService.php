@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Bid;
 use App\Params\BidParam;
+use Illuminate\Support\Facades\Date;
 
 class BidService
 {
@@ -16,6 +17,8 @@ class BidService
 
     public function create(BidParam $par): bool
     {
+        if($par->auction->expires_at > new Date()) return false;
+
         $user = $par->user;
 
         $auctionService = new AuctionService();

@@ -5,12 +5,16 @@ namespace App\Services;
 use App\Models\Auction;
 use App\Models\User;
 use App\Params\UserAuctionParam;
+use Illuminate\Support\Facades\Date;
 
 class AuctionService
 {
-    public function complete($auctionId, $userId)
+    public function complete($auctionId, $userId, $override = false)
     {
         $auction = Auction::find($auctionId);
+        $highestBid = $this->getAuctionHighestBid($auction);
+        if(!$override && $highestBid->userId != $userId) return false;
+
         $auction->winner_id = $userId;
         $auction->is_complete = 1;
         $auction->users()->attach($userId);
@@ -30,6 +34,7 @@ class AuctionService
         $data = [];
         foreach($auctions as $auction){
             if($auction->is_complete) continue;
+            if((Date::create($auction->expires_at)->timestamp < Date::now()->timestamp)) continue;
             $data[] = [
                 'auction' => $auction,
                 'product' => $auction->product,

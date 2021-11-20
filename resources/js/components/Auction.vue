@@ -1,14 +1,18 @@
 <template>
     <div class="card container p-4">
-        <div class="row g-0">
+        <div v-if="data.auction" class="row g-0">
             <div class="col-md-5">
+                <div class="text-center">
+                    <span>Expires in:</span>
+                    <countdown :deadline="data.auction.expires_at"/>
+                </div>
                 <img
-                    src="https://picsum.photos/500/586?random=1"
+                    src="https://picsum.photos/500/485?random=1"
                     class="img-fluid rounded-start"
+
                 />
             </div>
-
-            <div v-if="data.auction" class="col-md-7">
+            <div class="col-md-7">
                 <div class="pb-4">
                     <h1 class="card-title">{{ data.product.name}}</h1>
                     <p class="card-text">{{ data.product.description}}</p>
@@ -41,15 +45,17 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
 
 <script>
+import Countdown from 'vuejs-countdown'
 
 export default {
     name: "Auction",
+
+    components: { Countdown  },
 
     props: {
         auctionId: {
