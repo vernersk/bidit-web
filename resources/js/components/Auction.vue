@@ -30,7 +30,7 @@
                         <input
                             type="number"
                             name="bid"
-                            :value="bid"
+                            v-model:value="bid"
                             class="w-100 h4"
                         >
                     </div>
@@ -79,10 +79,11 @@ export default {
 
     methods: {
         getData() {
+
             axios.get('/api/auctions/' + this.auctionId).then( response => {
                 this.data = response.data;
-            }).then( () => {
-                this.bid = this.data.highestBid.amount + 1 ?? 0;
+            }).then(() => {
+                this.bid = this.data.highestBid.amount ? this.data.highestBid.amount + 1 : 1;
             });
         },
 

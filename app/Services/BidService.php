@@ -23,10 +23,10 @@ class BidService
 
         if(!$highestBid && $par->amount > 0){
             $this->setBid($par);
-            return false;
+            return true;
         }
 
-        if($highestBid->userId == $user->getAuthIdentifier()) return false;
+        if(!$highestBid || $highestBid->userId == $user->getAuthIdentifier()) return false;
         if($par->amount <= ceil($highestBid->amount)) return false;
         if($par->amount <= 0) return false;
 

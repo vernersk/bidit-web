@@ -3,10 +3,8 @@
 namespace App\Services;
 
 use App\Models\Auction;
-use App\Models\Bid;
 use App\Models\User;
 use App\Params\UserAuctionParam;
-use Illuminate\Database\Eloquent\Model;
 
 class AuctionService
 {
@@ -35,7 +33,7 @@ class AuctionService
             $data[] = [
                 'auction' => $auction,
                 'product' => $auction->product,
-                'highestBid' => $this->getAuctionHighestBid($auction),
+                'highestBid' => $this->getAuctionHighestBid($auction) ?? null,
             ];
         }
 
@@ -90,16 +88,15 @@ class AuctionService
     }
 
     /**
-     * @param Model $auction
-     * @return Bid|null
+     * @param Auction $auction
      */
-    public function getAuctionHighestBid(Auction $auction): ?Bid
+    public function getAuctionHighestBid(Auction $auction)
     {
         return $auction->bids()
             ->join('users', 'users.id', '=', 'bids.user_id')
             ->select(['users.id as userId', 'users.name', 'bids.amount'])
             ->orderBy('amount', 'DESC')
-            ->first();
+            ->first() ?? null;
     }
 
     public function getAuctionById($auctionId): ?Auction
