@@ -3,8 +3,8 @@
         <div class="row g-5 justify-content-center" v-if="data.length">
             <div v-for="datum in data" class="card col-md-3 m-2 shadow-sm" style="width: 18rem;">
                 <img
-                    src="https://thumbs.dreamstime.com/b/old-worn-laced-boot-white-background-old-worn-boot-169699019.jpg"
-                    class="w-100 position-relative"
+                    :src="datum.product.image"
+                    class="w-100 mt-3 position-relative"
                 >
                 <div class="py-2 flex-grow-1">
                     <h5 class="card-title">{{ datum.product.name }}</h5>

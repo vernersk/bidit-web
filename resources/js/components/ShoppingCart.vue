@@ -8,7 +8,7 @@
                         <div class="col-sm-2 justify-content-start">
                             <div class="card shadow-sm">
                                 <img
-                                    src="https://thumbs.dreamstime.com/b/old-worn-laced-boot-white-background-old-worn-boot-169699019.jpg"
+                                    :src="datum.product.image"
                                     class="w-100 position-relative"
                                 >
                             </div>
