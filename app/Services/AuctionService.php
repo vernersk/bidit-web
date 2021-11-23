@@ -85,6 +85,7 @@ class AuctionService
         $data = [];
         foreach($auctions as $auction){
             if($auction['auction']->is_complete != $par->isComplete) continue;
+            if($auction['auction']->transaction) continue;
             if($par->isWinner && $auction['auction']->winner_id != $par->userId) continue;
             $data[] = $auction;
         }
@@ -101,7 +102,7 @@ class AuctionService
             ->join('users', 'users.id', '=', 'bids.user_id')
             ->select(['users.id as userId', 'users.name', 'bids.amount'])
             ->orderBy('amount', 'DESC')
-            ->first() ?? null;
+            ->first();
     }
 
     public function getAuctionById($auctionId): ?Auction

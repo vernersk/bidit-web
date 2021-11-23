@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->double('total');
             $table->unsignedBigInteger('user_id');
             $table->string('status')->default(null);
-            $table->timestamp('completed_at');
+            $table->timestamp('completed_at')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Auction;
 use App\Models\Transaction;
 use App\Params\TransactionParam;
 
@@ -18,13 +17,19 @@ class TransactionService
 
         $total = 0.0;
         foreach($par->auctions as $auction){
-            $auction->transaction()->associate($transaction);
+            if($auction->transaction) continue;
             $highestBidder = $auctionService->getAuctionHighestBid($auction);
             $total += $highestBidder->amount;
         }
 
-        $transaction->total = $par->total ?? $total;
+        $transaction->total = $total;
         $transaction->save();
+
+        foreach($par->auctions as $auction){
+            $auction->transaction()->associate($transaction);
+            $auction->save();
+        }
+
     }
 
     public function setStatus($transactionId, $status)

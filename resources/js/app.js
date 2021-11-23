@@ -23,6 +23,9 @@ Vue.component('shopping-cart', require('./components/ShoppingCart.vue').default)
 Vue.component('my-wins', require('./components/MyWins.vue').default);
 Vue.component('checkout', require('./components/Checkout.vue').default);
 Vue.component('auction', require('./components/Auction.vue').default);
+Vue.component('transactions', require('./components/Transactions.vue').default);
+Vue.component('products', require('./components/Products').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

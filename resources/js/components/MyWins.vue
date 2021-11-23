@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row g-5 justify-content-center">
+        <div class="row g-5 justify-content-center" v-if="data.length">
             <div v-for="datum in data" class="card col-md-3 m-2 shadow-sm" style="width: 18rem;">
                 <img
                     src="https://thumbs.dreamstime.com/b/old-worn-laced-boot-white-background-old-worn-boot-169699019.jpg"
@@ -24,6 +24,9 @@
                 </div>
             </div>
         </div>
+        <div v-else>
+            <h1>Nothing here</h1>
+        </div>
     </div>
 </template>
 
@@ -36,10 +39,6 @@ export default {
         inCart: JSON.parse(window.localStorage.getItem("cart")) ?? [],
     }),
 
-    watch: {
-
-    },
-
     mounted() {
         this.getUserWins();
     },
@@ -49,7 +48,6 @@ export default {
         {
             axios.get('api/wins').then( response => {
                 this.data = response.data;
-                console.log(this.data);
             });
         },
 

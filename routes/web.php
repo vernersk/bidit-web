@@ -4,6 +4,7 @@ use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,14 +28,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/auction/complete', [AuctionController::class, 'complete'])
         ->name('auction.complete');
 
-
-
     Route::resource('bid', BidController::class);
 
+    Route::get('my-transactions', function() {
+       return view('user-transactions');
+    })->name('my-transactions');
 
     Route::get('my-wins', function () {
         return view('user-wins');
     })->name('my-wins');
+
+    Route::get('thank-you', function () {
+        return view('purchase.thanks');
+    })->name('thank-you');
 
     Route::get('cart', function(){
         return view('/purchase/shopping-cart');
@@ -46,6 +52,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/purchase/delivery', [PurchaseController::class, 'delivery'])
         ->name('purchase.delivery');
+
+    Route::get('/products', function() {
+        return view('products');
+    })->name('products');
 
     Route::resource('product', ProductController::class);
 

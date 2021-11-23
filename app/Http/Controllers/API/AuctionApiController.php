@@ -34,13 +34,8 @@ class AuctionApiController extends Controller
 
     public function bid(Request $request)
     {
-
-
         $bidService = new BidService();
-
         $auctionId = (int)$request->input('auctionId');
-
-
         $bid = (double)$request->input('bid');
         $auctionService = new AuctionService();
 

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @if($data)
     <div class="row g-5 justify-content-center">
         <?php foreach($data as $datum): ?>
             <div class="card col-3 m-2 shadow-sm" style="width: 18rem;">
@@ -31,5 +32,10 @@
             </div>
         <?php endforeach; ?>
     </div>
+    @else
+    <div>
+        <h1>Nothing here</h1>
+    </div>
+    @endif
 </div>
 @endsection

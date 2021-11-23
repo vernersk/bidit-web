@@ -54,6 +54,7 @@ export default {
         getUserAuctions()
         {
             const auctionIds = this.getAuctionsInCart();
+            if(!auctionIds) return;
             axios.get('api/wins', {
                 params:{
                     isCart: Boolean(auctionIds.length),
@@ -66,7 +67,7 @@ export default {
         },
 
         getAuctionsInCart(){
-            return JSON.parse(window.localStorage.getItem("cart"));
+            return JSON.parse(window.localStorage.getItem("cart")) ?? null;
         },
 
         getTotal(){

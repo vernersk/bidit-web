@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Cookie\CookieJar;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
@@ -17,16 +21,6 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Collection|Product[]
-     */
-    public function index()
-    {
-        return Product::all();
     }
 
     /**
@@ -60,48 +54,28 @@ class ProductController extends Controller
         //return view('home');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Product $product
-     * @return Renderable
-     */
-    public function show(Product $product)
+    public function getPage($page)
     {
-
+        $products = Product::paginate(5, ['*'], 'page', $page);
+        return response()->json($products);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Product $product
-     * @return void
-     */
-    public function edit(Product $product)
+    public function refresh()
     {
-        //
+        $response = Http::get('https://biditwarehouse.herokuapp.com/products');
+
+        foreach($response->object() as $item){
+            if(Product::where('_unique', '=', $item->_id)->first()) continue;
+            $product = new Product();
+            $product->_unique = $item->_id;
+            $product->name = $item->name;
+            $product->description = $item->description;
+            $product->price = (double)$item->startingPrice ?? 0;
+            $product->image = $item->imageURL;
+            $product->save();
+        }
+
+        return true;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Product $product
-     * @return void
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Product $product
-     * @return void
-     */
-    public function destroy(Product $product)
-    {
-        //
-    }
 }

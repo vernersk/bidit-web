@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
 class Transaction extends Model
 {
@@ -18,7 +20,7 @@ class Transaction extends Model
         self::STATUS_COMPLETED,
     ];
 
-    public function auctions(): HasMany
+    public function auctions(): HasOneOrMany
     {
         return $this->hasMany(Auction::class);
     }
