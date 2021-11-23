@@ -24,6 +24,16 @@
                                 </div>
                             </div>
                         </div>
+                    @else
+                        <div class="my-2">
+                            <div class="card-text block">
+                                <div>Highest bidder: </div>
+                                <div class="h5 rounded-sm p-2 text-white d-flex justify-content-between bg-info">
+                                    <div>Starting bid</div>
+                                    <div>${{$auction['product']['price']}}</div>
+                                </div>
+                            </div>
+                        </div>
                     @endif
                 </div>
                 <div class="mb-3">
