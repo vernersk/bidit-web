@@ -6,8 +6,8 @@
         <?php foreach($auctions as $auction): ?>
             <div class="card col-3 m-2 shadow-sm" style="width: 18rem;">
                 <img
-                    src="https://thumbs.dreamstime.com/b/old-worn-laced-boot-white-background-old-worn-boot-169699019.jpg"
-                    class="w-100 position-relative"
+                    src="{{$auction['product']['image']}}"
+                    class="w-100 mt-3 position-relative"
                 >
                 <div class="py-2 flex-grow-1">
                     <h5 class="card-title">{{ $auction['product']['name'] }}</h5>

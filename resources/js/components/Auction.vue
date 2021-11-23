@@ -1,15 +1,14 @@
 <template>
     <div class="card container p-4">
         <div v-if="data.auction" class="row g-0">
-            <div class="col-md-5">
+            <div class="col-md-5 text-center">
                 <div class="text-center">
                     <span>Expires in:</span>
                     <countdown :deadline="data.auction.expires_at"/>
                 </div>
-                <img
-                    src="https://picsum.photos/500/485?random=1"
-                    class="img-fluid rounded-start"
-
+                <img :src="data.product.image"
+                     class="img-fluid rounded-start"
+                     style="min-height: 420px;"
                 />
             </div>
             <div class="col-md-7">
@@ -21,6 +20,10 @@
                     <div id="scroller" class="" style="height: 367px; overflow-y: auto;">
                         <table class="table">
                             <tbody>
+                            <tr :class="data.bids.length ? '' : 'bg-warning'">
+                                <td>Starting bid</td>
+                                <td class="text-right"><b>$</b>{{data.product.price}}</td>
+                            </tr>
                             <tr v-for="(bid, key) in data.bids" :class="key === data.bids.length-1 ? 'bg-warning' : ''">
                                 <td>{{bid.name}}</td>
                                 <td class="text-right"><b>$</b> {{bid.amount}}</td>
@@ -75,7 +78,7 @@ export default {
             bids: null,
             highestBid: null,
         },
-        bid: null,
+        bid: 0,
     }),
 
     mounted() {
@@ -89,7 +92,7 @@ export default {
             axios.get('/api/auctions/' + this.auctionId).then( response => {
                 this.data = response.data;
             }).then(() => {
-                this.bid = this.data.highestBid.amount ? this.data.highestBid.amount + 1 : 1;
+                this.bid = this.data.highestBid.amount ? this.data.highestBid.amount + 1 : this.data.product.price + 1;
             });
         },
 

@@ -24,8 +24,10 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
+            '_unique' => substr($this->faker->sha1,0, 16),
             'description' => $this->faker->sentence(),
-            'image' => Str::random(10),
+            'price' => rand(5, 50),
+            'image' => 'https://picsum.photos/id/'. rand(1, 200) .'/420/420',
         ];
     }
 }

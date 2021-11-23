@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Cookie\CookieJar;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
@@ -54,13 +50,13 @@ class ProductController extends Controller
         //return view('home');
     }
 
-    public function getPage($page)
+    public function getPage($page): JsonResponse
     {
         $products = Product::paginate(5, ['*'], 'page', $page);
         return response()->json($products);
     }
 
-    public function refresh()
+    public function refresh(): bool
     {
         $response = Http::get('https://biditwarehouse.herokuapp.com/products');
 

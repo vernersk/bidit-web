@@ -24,7 +24,7 @@ class BidService
         $auctionService = new AuctionService();
         $highestBid = $auctionService->getAuctionHighestBid($par->auction);
 
-        if(!$highestBid && $par->amount > 0){
+        if(!$highestBid && $par->amount > $par->auction->product->price){
             $this->setBid($par);
             return true;
         }
