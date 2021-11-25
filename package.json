@@ -31,6 +31,7 @@
         "laravel-vue-pagination": "^2.3.1",
         "vue-loader": "^15.9.8",
         "vue2-flip-countdown": "^0.12.1",
-        "vuejs-countdown": "^0.2.1"
+        "vuejs-countdown": "^0.2.1",
+        "vuejs-datepicker": "^0.9.9"
     }
 }

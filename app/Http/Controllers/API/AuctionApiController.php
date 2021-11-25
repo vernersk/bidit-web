@@ -4,10 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Events\OnBidPlaced;
 use App\Http\Controllers\Controller;
+use App\Models\Auction;
+use App\Models\Product;
 use App\Models\User;
 use App\Params\BidParam;
 use App\Services\AuctionService;
 use App\Services\BidService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AuctionApiController extends Controller
@@ -52,5 +55,16 @@ class AuctionApiController extends Controller
     public function complete($auctionId, $userId)
     {
         return $this->service->complete($auctionId, $userId);
+    }
+
+    public function create(Request $request): bool
+    {
+        $product = Product::find($request->productId);
+        $auction = new Auction();
+        $auction->product()->associate($product);
+        $auction->expires_at = Carbon::now()->addDays(rand(1, 55));
+        $auction->save();
+
+        return true;
     }
 }

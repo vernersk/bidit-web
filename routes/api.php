@@ -36,9 +36,11 @@ Route::get('users/{userId}/transactions', [UserApiController::class, 'getTransac
 // Get user address form data
 Route::get('users/{userId}/address-form-data', [UserApiController::class, 'getAddressFormData']);
 // Set user address form data
-Route::post('users/set-address-form-data',[UserApiController::class, 'setAddressFormData']);
+Route::post('users/set-address-form-data', [UserApiController::class, 'setAddressFormData']);
 // Get all transactions
-Route::get('transactions', function() { return Transaction::all(); });
+Route::get('transactions', function () {
+    return Transaction::all();
+});
 // Need userId and auctionIds
 Route::post('transactions/create', [TransactionController::class, 'create']);
 
@@ -46,6 +48,8 @@ Route::post('transactions/create', [TransactionController::class, 'create']);
 Route::get('auctions', [AuctionApiController::class, 'get']);
 // Get auction by id
 Route::get('auctions/{auctionId}', [AuctionApiController::class, 'getById']);
+// Create an auction from a product, requires productId and expires_at - date / datetime
+Route::post('/auctions/create', [AuctionApiController::class, 'create']);
 // Add a new bid to an auction
 // Required API form-data: auctionId, bid, userId
 Route::post('/auctions/bids/create', [AuctionApiController::class, 'bid']);
@@ -56,7 +60,9 @@ Route::get('auctions/users/{userId}', [AuctionApiController::class, 'getByUserId
 Route::get('auctions/{auctionId}/users/{userId}/complete', [AuctionApiController::class, 'complete']);
 
 // Get all products
-Route::get('products', function() { return Product::all(); });
+Route::get('products', function () {
+    return Product::all();
+});
 // Get paginated products
 Route::get('/products/pages/{page}', [ProductController::class, 'getPage']);
 // Refresh our database from WH db
