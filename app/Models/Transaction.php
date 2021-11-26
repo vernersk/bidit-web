@@ -14,10 +14,12 @@ class Transaction extends Model
 
     public const STATUS_PENDING = 'pending';
     public const STATUS_COMPLETED = 'completed';
+    public const STATUS_DECLINED = 'declined';
 
     public const STATUSES = [
         self::STATUS_PENDING,
         self::STATUS_COMPLETED,
+        self::STATUS_DECLINED
     ];
 
     public function auctions(): HasOneOrMany

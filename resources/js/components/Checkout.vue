@@ -91,6 +91,7 @@ export default {
         surname: '',
         address: '',
         address2: '',
+        email: '',
         city: '',
         state: '',
         zip: '',
@@ -98,6 +99,7 @@ export default {
         subtotal: 0,
         total: 0,
         auctionIds: [],
+        transactionId: 0
     }),
 
     mounted() {
@@ -118,6 +120,7 @@ export default {
                 this.city = response.data.city;
                 this.state = response.data.state;
                 this.zip = response.data.zip;
+                this.email = response.data.email;
             });
         },
 
@@ -144,8 +147,20 @@ export default {
                 auctionIds: this.auctionIds
             }).then(response => {
                 if(response){
+                    this.transactionId = response.data;
                     this.emptyCart();
-                    this.pay();
+                    this.createDeliveryRequest();
+                    this.redirectToPay();
+                }
+            });
+        },
+
+        updateTransaction(){
+            axios.post('/api/transactions/' + this.transactionId + '/update', {
+                packageId: this.packageId
+            }).then(response => {
+                if(response){
+                    window.location.href = '/thank-you';
                 }
             });
         },
@@ -175,16 +190,20 @@ export default {
             window.localStorage.clear();
         },
 
-        pay(){
-            const success = true;
-            if(success){
-                this.createDeliveryRequest();
-                window.location.href = '/thank-you';
-            }
+        redirectToPay(){
+            window.open("https://klarn-bank-system.herokuapp.com?transaction_id=" + this.transactionId, "_blank");
         },
 
         createDeliveryRequest(){
-
+            axios.post('http://biditdelivery.herokuapp.com/api/delivery/package/generate', {
+                userName: this.name,
+                userEmail: this.email,
+                userAddress: this.address
+            }).then( response => {
+                this.packageId = response.data.packageId;
+                this.updateTransaction();
+                this.setTotal();
+            });
         },
 
         setTotal(){
@@ -192,7 +211,7 @@ export default {
         },
 
         setAuctionIds(){
-            this.auctionIds =  JSON.parse(window.localStorage.getItem("cart")) ?? null;
+            this.auctionIds = JSON.parse(window.localStorage.getItem("cart")) ?? null;
         },
     },
 }
