@@ -25,7 +25,6 @@ class TransactionController extends Controller
         $par = new TransactionParam();
         $par->userId = $request->userId;
         $par->auctions = Auction::find($request->auctionIds);
-        $this->transactionService->store($par);
-        return true;
+        return $this->transactionService->store($par);
     }
 }

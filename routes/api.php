@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuctionApiController;
+use App\Http\Controllers\API\TransactionApiController;
 use App\Http\Controllers\API\UserApiController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
@@ -43,6 +44,10 @@ Route::get('transactions', function () {
 });
 // Need userId and auctionIds
 Route::post('transactions/create', [TransactionController::class, 'create']);
+// Get specific transaction
+Route::get('transactions/{transactionId}', [TransactionApiController::class, 'getById']);
+// Need transactionId and status as data
+Route::post('transactions/{transactionId}/update', [TransactionApiController::class, 'updateTransaction']);
 
 // All auctions
 Route::get('auctions', [AuctionApiController::class, 'get']);
