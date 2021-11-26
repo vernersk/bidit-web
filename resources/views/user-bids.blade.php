@@ -23,7 +23,7 @@
                 </div>
                 <div class="my-2">
                     <div class="card-text block">
-                        <div>Highest bidder: </div>
+                        <div class="font-weight-bold">Highest bidder: </div>
                         <div class="h5 rounded-sm p-2 text-white d-flex justify-content-between {{ $datum['isUserHighestBidder'] ? 'bg-success' : 'bg-danger'}}">
                             <div class="">{{$datum['highestBid']['name']}}</div>
                             <div class="">${{$datum['highestBid']['amount']}}</div>
@@ -35,10 +35,6 @@
                 </div>
             </div>
         <?php endforeach; ?>
-    </div>
-    @else
-    <div>
-        <h1>Nothing here</h1>
     </div>
     @endif
 </div>

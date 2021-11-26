@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="jumbotron">
+        <div class="card p-4 shadow-sm">
             <h1 class="display-3">Thank you for your purchase!</h1>
             <hr class="my-4">
             <p class="lead">Your order is being processed.</p>

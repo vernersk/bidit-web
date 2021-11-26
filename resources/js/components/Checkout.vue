@@ -3,41 +3,45 @@
         <div class="row">
             <div class="justify-content-between col-md-8" style="height: 500px;">
                 <div class="col-12 border shadow p-3 mb-5 bg-white">
-                    <h3>Delivery information</h3>
-                    <p>Please enter information about the person making this order and the exact address of delivery.</p>
+                    <div class="border">
+                        <h3 class="font-weight-bold">Delivery information</h3>
+                        <p>Please enter information about the person making this order and the exact address of delivery.</p>
+                    </div>
                     <form>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputName">Name</label>
-                                <input type="text" name="name" class="form-control" id="inputName" v-model="name" required="required">
+                        <div class="border">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputName">Name</label>
+                                    <input type="text" name="name" class="form-control" id="inputName" v-model="name" required="required">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputSurname">Surname</label>
+                                    <input type="text" name="surname" class="form-control" id="inputSurname" v-model="surname" required="required">
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputSurname">Surname</label>
-                                <input type="text" name="surname" class="form-control" id="inputSurname" v-model="surname" required="required">
+                            <div class="form-group">
+                                <label for="inputAddress">Address</label>
+                                <input type="text" name="address" class="form-control" id="inputAddress" v-model="address"
+                                    placeholder="1234 Main St" required="required">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress">Address</label>
-                            <input type="text" name="address" class="form-control" id="inputAddress" v-model="address"
-                                   placeholder="1234 Main St" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress2">Address 2</label>
-                            <input type="text" name="address2" class="form-control" id="inputAddress2" v-model="address2"
-                                   placeholder="Apartment, studio, or floor" >
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">City</label>
-                                <input type="text" name="city" class="form-control" id="inputCity" v-model="city" required="required">
+                            <div class="form-group">
+                                <label for="inputAddress2">Address 2</label>
+                                <input type="text" name="address2" class="form-control" id="inputAddress2" v-model="address2"
+                                    placeholder="Apartment, studio, or floor" >
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputState">State</label>
-                                <input type="text" name="state" class="form-control" id="inputState" v-model="state" required="required">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputZip">Zip</label>
-                                <input type="text" name="zip" class="form-control" id="inputZip" v-model="zip" required="required">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">City</label>
+                                    <input type="text" name="city" class="form-control" id="inputCity" v-model="city" required="required">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">State</label>
+                                    <input type="text" name="state" class="form-control" id="inputState" v-model="state" required="required">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputZip">Zip</label>
+                                    <input type="text" name="zip" class="form-control" id="inputZip" v-model="zip" required="required">
+                                </div>
                             </div>
                         </div>
                         <div class="text-right">
@@ -48,12 +52,11 @@
             </div>
 
             <div class="col-md-4">
-                <div class="border shadow bg-white p-3" style="height: 485px;">
-                    <div>
-                        <h3>Confirm order</h3>
-                        <h4>Nosaukums</h4>
+                <div class="border shadow bg-white p-3">
+                    <div class="border p-1">
+                        <h3 class="font-weight-bold">Confirm order</h3>
                     </div>
-                    <div>
+                    <div class="border p-1">
                         <table>
                             <tbody style="font-size: 1.25em">
                             <tr>

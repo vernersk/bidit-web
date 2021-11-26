@@ -1,0 +1,102 @@
+body {
+    height:100%;
+    background: #D1EBED;
+    font-family: sans-serif;
+}
+
+a { 
+    color:black; 
+}
+a:hover { 
+    color: rgb(97, 97, 97);
+    transition: 0.3s;
+}
+
+.btn-primary, .btn-primary:visited {
+    border: none !important;
+    outline: none !important;
+    background-color: #F0B66F !important;
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #C7AD5B !important;
+}
+
+img {
+    border: 2px solid black;
+}
+
+tr {
+    background-color: rgb(231, 231, 231);
+}
+td {
+    background-color: white;
+}
+
+.border {
+    padding: 10px;
+    margin: 5px;
+}
+
+.card-title {
+    text-align: center;
+    font-weight: bold;
+}
+.navbar-custom {
+    background-color: #61C7B1;
+}
+#site-name {
+    color: black;
+    text-shadow: 3px 3px #4EA08E;
+    font-size: 35px;
+    font-family: sans-serif;
+}
+#site-name:hover {
+    color: rgb(97, 97, 97);
+    text-shadow: 3px 3px #4EA08E;
+    transition: 0.5s;
+}
+
+ul#header-navigation {
+    list-style: none;
+}
+ul#header-navigation li{
+    display:inline-block; 
+    padding:0 7px; 
+    position:relative;
+}
+ul#header-navigation li:not(:last-child)::after{
+    content:""; 
+    border:1px solid #4EA08E;
+    border-width: 1px 1px 0 0;
+    position:absolute; 
+    right:-3px;
+    top:0; 
+    height:100%;
+}
+
+#vertical-line{
+    display: inline-block;
+    border-left: 1px solid #ccc;
+    margin: 0 10px;
+    height: 125px;
+}
+
+/* 
+#navbarDropdown {
+    background-color: #4EA08E;
+}
+#navbarDropdown:hover {
+    background-color: #35796a;
+    outline: none;
+} */
+
+.highest-bider-info {
+    background-color: #8F7B3D;
+}
+#product {
+    background-color: white;
+}

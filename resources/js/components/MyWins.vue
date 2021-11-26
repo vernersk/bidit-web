@@ -24,9 +24,6 @@
                 </div>
             </div>
         </div>
-        <div v-else>
-            <h1>Nothing here</h1>
-        </div>
     </div>
 </template>
 

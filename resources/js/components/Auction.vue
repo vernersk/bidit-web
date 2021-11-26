@@ -1,9 +1,9 @@
 <template>
     <div class="card container p-4">
         <div v-if="data.auction" class="row g-0">
-            <div class="col-md-5 text-center">
+            <div class="border">
                 <div class="text-center">
-                    <span>Expires in:</span>
+                    <h4 class="card-title">Expires in:</h4>
                     <countdown :deadline="data.auction.expires_at"/>
                 </div>
                 <img :src="data.product.image"
@@ -11,7 +11,7 @@
                      style="min-height: 420px;"
                 />
             </div>
-            <div class="col-md-7">
+            <div class="border col-md-7">
                 <div class="pb-4">
                     <h1 class="card-title">{{ data.product.name}}</h1>
                     <p class="card-text">{{ data.product.description}}</p>

@@ -1,26 +1,33 @@
 <template>
     <div class="container">
-        <div class="d-flex justify-content-between">
-            <h1>Products</h1>
-            <a @click="refresh" class="btn btn-secondary align-self-center">REFRESH PRODUCTS LIST</a>
-        </div>
+        <div class="card shadow-sm">
+            <div class="m-3">
+                <div class="d-flex justify-content-between">
+                    <h1>Products</h1>
+                    <a @click="refresh" class="btn btn-secondary align-self-center">REFRESH PRODUCTS LIST</a>
+                </div>
 
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col" class="w-25">ID</th>
-                <th scope="col" class="w-25">Name</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="product in products.data" :key="product.id">
-                <td>{{product.id}}</td>
-                <td>{{product.name}}</td>
-                <td class="text-right"><a class="btn btn-success">Create auction</a></td>
-            </tr>
-            </tbody>
-        </table>
-        <pagination :data="products" @pagination-change-page="getProducts"></pagination>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col" style="width: 14%"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="product in products.data" :key="product.id">
+                        <td>{{product.id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.description}}</td>
+                        <td class="text-right"><a class="btn btn-success">Create auction</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <pagination :data="products" @pagination-change-page="getProducts"></pagination>
+            </div>
+        </div>
     </div>
 </template>
 <script>

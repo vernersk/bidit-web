@@ -1,38 +1,41 @@
 <template>
     <div>
         <div class="container">
-            <h1>Shopping cart:</h1>
             <div v-if="data.length">
-                <div v-for="datum in data" class="card col-15 shadow-sm">
-                    <div class="row m-3 justify-content-between align-items-center">
-                        <div class="col-sm-2 justify-content-start">
-                            <div class="card shadow-sm">
-                                <img
-                                    :src="datum.product.image"
-                                    class="w-100 position-relative"
-                                >
-                            </div>
-                        </div>
-                        <div class="col">
-                            <h5 >{{datum.product.name}}</h5>
-                            <p>$ {{datum.highestBid.amount}}</p>
-                        </div>
-                        <div class="col-sm-2 justify-content-end">
-                            <a @click="removeFromCart(datum.auction.id)" type="button" class="btn btn-primary">Remove</a>
+                <div class="card shadow-sm">
+                    <div class="m-3">
+                        <table class="table table-bordered" style="border:1px solid lightgray">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="width: 20%">Image</th>
+                                <th scope="col" style="width: 20%">Name</th>
+                                <th scope="col" style="width: 50%">Description</th>
+                                <th scope="col" style="width: 5%">Price</th>
+                                <th scope="col" style="width: 5%"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="datum in data">
+                                    <td class="align-middle"> <img :src="datum.product.image" class="w-100"> </td>
+                                    <td class="p align-middle">{{datum.product.name}}</td>
+                                    <td class="p align-middle">{{datum.product.description}}</td>
+                                    <td class="p align-middle">${{datum.highestBid.amount}}</td>
+                                    <td class="align-middle">
+                                        <a @click="removeFromCart(datum.auction.id)" type="button" class="btn btn-danger">Remove</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-left">
+                            <h5 class="font-weight-bold">Total price: ${{total}}</h5>
+                            <a href="/checkout" class="btn btn-primary mt-2">
+                                Proceed to check out
+                            </a>
                         </div>
                     </div>
                 </div>
-
-                <div class="text-right mt-4">
-                    <h5>Total price: ${{total}}</h5>
-                    <a href="/checkout" class="btn btn-primary mt-2">
-                        Proceed to check out
-                    </a>
-                </div>
             </div>
-            <div v-else>
-                Nothing here
-            </div>
+            <div v-else></div>
         </div>
     </div>
 </template>
