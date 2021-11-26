@@ -10,6 +10,7 @@ use App\Services\AuctionService;
 use App\Models\UserData;
 use App\Services\WinService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class UserApiController extends Controller
 {
@@ -39,9 +40,19 @@ class UserApiController extends Controller
     }
 
     public function getTransactionsByUserId($userId){
-        return Transaction::query()
+        $transactions = Transaction::query()
             ->where('user_id', '=', $userId)
             ->get();
+
+        foreach($transactions->whereNotNull('package_id') as $transaction){
+            $response = Http::get("http://biditdelivery.herokuapp.com/api/delivery/package/{$transaction->package_id}/status");
+            if($response->object()->deliveryStatus) {
+                $transaction->status = $response->object()->deliveryStatus;
+                $transaction->save();
+            }
+        }
+
+        return $transactions;
     }
 
     public function getAuctionsUserBidOn($userId): array
@@ -56,15 +67,16 @@ class UserApiController extends Controller
         return $auctionService->getAuctionsUserBidOn($par);
     }
 
-    public function getAddressFormData($userId): ?UserData
+    public function getAddressFormData($userId)
     {
         try{
             $userData = UserData::where('user_id', '=', $userId)->first();
+            $userEmail = User::where('id', '=', $userId)->first()->email;
         }catch(\Exception $e){
             return null;
         }
 
-        return  $userData;
+        return array_merge($userData->toArray(), ['email' => $userEmail]);
     }
 
     public function setAddressFormData(Request $request): bool

@@ -15,8 +15,8 @@
                     <td>${{transaction.total}}</td>
                     <td>{{transaction.status.toUpperCase()}}</td>
                     <td>{{new Date(transaction.created_at).toLocaleString("en-UK")}}</td>
-                    <td>PACKAGE ID</td>
-                    <td>PACKAGE STATUS</td>
+                    <td>{{transaction.package_id}}</td>
+                    <td>${{transaction.total}}</td>
                 </tr>
             </tbody>
         </table>

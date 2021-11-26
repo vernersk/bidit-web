@@ -30,14 +30,8 @@ class TransactionService
             $auction->save();
         }
 
-    }
+        return $transaction->id;
 
-    public function setStatus($transactionId, $status)
-    {
-        if(!in_array($status, Transaction::STATUSES)) return;
-        $transaction = Transaction::find($transactionId);
-        $transaction->status = $status;
-        $transaction->save();
     }
 
     public function getStatus($transactionId)
